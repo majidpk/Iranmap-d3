@@ -1,0 +1,342 @@
+,Year,Population,Province,ostan,Code
+1,1393,1206,East Azarbaijan,¬–—»«ÌÃ«‰ ‘—ﬁÌ,IR.EA
+2,1394,1249,East Azarbaijan,¬–—»«ÌÃ«‰ ‘—ﬁÌ,IR.EA
+3,1392,1165,East Azarbaijan,¬–—»«ÌÃ«‰ ‘—ﬁÌ,IR.EA
+4,1385,912,East Azarbaijan,¬–—»«ÌÃ«‰ ‘—ﬁÌ,IR.EA
+5,1390,1086,East Azarbaijan,¬–—»«ÌÃ«‰ ‘—ﬁÌ,IR.EA
+6,1395,1294,East Azarbaijan,¬–—»«ÌÃ«‰ ‘—ﬁÌ,IR.EA
+7,1388,1016,East Azarbaijan,¬–—»«ÌÃ«‰ ‘—ﬁÌ,IR.EA
+8,1389,1051,East Azarbaijan,¬–—»«ÌÃ«‰ ‘—ﬁÌ,IR.EA
+9,1386,947,East Azarbaijan,¬–—»«ÌÃ«‰ ‘—ﬁÌ,IR.EA
+10,1391,1125,East Azarbaijan,¬–—»«ÌÃ«‰ ‘—ﬁÌ,IR.EA
+11,1387,982,East Azarbaijan,¬–—»«ÌÃ«‰ ‘—ﬁÌ,IR.EA
+12,1393,943,West Azarbaijan,¬–—»«ÌÃ«‰ €—»Ì,IR.WA
+13,1388,756,West Azarbaijan,¬–—»«ÌÃ«‰ €—»Ì,IR.WA
+14,1389,789,West Azarbaijan,¬–—»«ÌÃ«‰ €—»Ì,IR.WA
+15,1394,986,West Azarbaijan,¬–—»«ÌÃ«‰ €—»Ì,IR.WA
+16,1387,723,West Azarbaijan,¬–—»«ÌÃ«‰ €—»Ì,IR.WA
+17,1392,901,West Azarbaijan,¬–—»«ÌÃ«‰ €—»Ì,IR.WA
+18,1385,656,West Azarbaijan,¬–—»«ÌÃ«‰ €—»Ì,IR.WA
+19,1390,823,West Azarbaijan,¬–—»«ÌÃ«‰ €—»Ì,IR.WA
+20,1395,1032,West Azarbaijan,¬–—»«ÌÃ«‰ €—»Ì,IR.WA
+21,1391,861,West Azarbaijan,¬–—»«ÌÃ«‰ €—»Ì,IR.WA
+22,1386,689,West Azarbaijan,¬–—»«ÌÃ«‰ €—»Ì,IR.WA
+23,1388,316,Ardebil,«—œ»Ì·,IR.AR
+24,1393,379,Ardebil,«—œ»Ì·,IR.AR
+25,1395,409,Ardebil,«—œ»Ì·,IR.AR
+26,1391,351,Ardebil,«—œ»Ì·,IR.AR
+27,1389,327,Ardebil,«—œ»Ì·,IR.AR
+28,1394,393,Ardebil,«—œ»Ì·,IR.AR
+29,1390,338,Ardebil,«—œ»Ì·,IR.AR
+30,1387,304,Ardebil,«—œ»Ì·,IR.AR
+31,1392,364,Ardebil,«—œ»Ì·,IR.AR
+32,1385,282,Ardebil,«—œ»Ì·,IR.AR
+33,1386,293,Ardebil,«—œ»Ì·,IR.AR
+34,1394,1672,Esfahan,«’›Â«‰,IR.ES
+35,1395,1732,Esfahan,«’›Â«‰,IR.ES
+36,1388,1363,Esfahan,«’›Â«‰,IR.ES
+37,1393,1615,Esfahan,«’›Â«‰,IR.ES
+38,1390,1455,Esfahan,«’›Â«‰,IR.ES
+39,1386,1271,Esfahan,«’›Â«‰,IR.ES
+40,1391,1506,Esfahan,«’›Â«‰,IR.ES
+41,1389,1409,Esfahan,«’›Â«‰,IR.ES
+42,1385,1225,Esfahan,«’›Â«‰,IR.ES
+43,1387,1317,Esfahan,«’›Â«‰,IR.ES
+44,1392,1560,Esfahan,«’›Â«‰,IR.ES
+45,1394,878,Alborz,«·»—“,IR.AL
+46,1389,688,Alborz,«·»—“,IR.AL
+47,1385,561,Alborz,«·»—“,IR.AL
+48,1390,719,Alborz,«·»—“,IR.AL
+49,1395,923,Alborz,«·»—“,IR.AL
+50,1388,656,Alborz,«·»—“,IR.AL
+51,1393,835,Alborz,«·»—“,IR.AL
+52,1386,593,Alborz,«·»—“,IR.AL
+53,1391,756,Alborz,«·»—“,IR.AL
+54,1392,795,Alborz,«·»—“,IR.AL
+55,1387,625,Alborz,«·»—“,IR.AL
+56,1393,153,Ilam,«Ì·«„,IR.IL
+57,1389,131,Ilam,«Ì·«„,IR.IL
+58,1394,159,Ilam,«Ì·«„,IR.IL
+59,1391,141,Ilam,«Ì·«„,IR.IL
+60,1392,147,Ilam,«Ì·«„,IR.IL
+61,1385,112,Ilam,«Ì·«„,IR.IL
+62,1390,136,Ilam,«Ì·«„,IR.IL
+63,1395,165,Ilam,«Ì·«„,IR.IL
+64,1388,126,Ilam,«Ì·«„,IR.IL
+65,1386,116,Ilam,«Ì·«„,IR.IL
+66,1387,121,Ilam,«Ì·«„,IR.IL
+67,1388,224,Bushehr,»Ê‘Â—,IR.BS
+68,1393,289,Bushehr,»Ê‘Â—,IR.BS
+69,1391,260,Bushehr,»Ê‘Â—,IR.BS
+70,1389,236,Bushehr,»Ê‘Â—,IR.BS
+71,1394,305,Bushehr,»Ê‘Â—,IR.BS
+72,1386,202,Bushehr,»Ê‘Â—,IR.BS
+73,1387,213,Bushehr,»Ê‘Â—,IR.BS
+74,1392,274,Bushehr,»Ê‘Â—,IR.BS
+75,1385,190,Bushehr,»Ê‘Â—,IR.BS
+76,1390,247,Bushehr,»Ê‘Â—,IR.BS
+77,1395,321,Bushehr,»Ê‘Â—,IR.BS
+78,1385,3169,Tehran, Â—«‰,IR.TH
+79,1390,3732,Tehran, Â—«‰,IR.TH
+80,1395,4401,Tehran, Â—«‰,IR.TH
+81,1388,3507,Tehran, Â—«‰,IR.TH
+82,1393,4120,Tehran, Â—«‰,IR.TH
+83,1394,4258,Tehran, Â—«‰,IR.TH
+84,1386,3282,Tehran, Â—«‰,IR.TH
+85,1391,3857,Tehran, Â—«‰,IR.TH
+86,1389,3620,Tehran, Â—«‰,IR.TH
+87,1387,3394,Tehran, Â—«‰,IR.TH
+88,1392,3986,Tehran, Â—«‰,IR.TH
+89,1393,264,Chahar Mahall and Bakhtiari,çÂ«—„Õ«· Ê »Œ Ì«—Ì,IR.CM
+90,1394,275,Chahar Mahall and Bakhtiari,çÂ«—„Õ«· Ê »Œ Ì«—Ì,IR.CM
+91,1392,254,Chahar Mahall and Bakhtiari,çÂ«—„Õ«· Ê »Œ Ì«—Ì,IR.CM
+92,1385,195,Chahar Mahall and Bakhtiari,çÂ«—„Õ«· Ê »Œ Ì«—Ì,IR.CM
+93,1390,235,Chahar Mahall and Bakhtiari,çÂ«—„Õ«· Ê »Œ Ì«—Ì,IR.CM
+94,1395,287,Chahar Mahall and Bakhtiari,çÂ«—„Õ«· Ê »Œ Ì«—Ì,IR.CM
+95,1388,219,Chahar Mahall and Bakhtiari,çÂ«—„Õ«· Ê »Œ Ì«—Ì,IR.CM
+96,1389,227,Chahar Mahall and Bakhtiari,çÂ«—„Õ«· Ê »Œ Ì«—Ì,IR.CM
+97,1386,203,Chahar Mahall and Bakhtiari,çÂ«—„Õ«· Ê »Œ Ì«—Ì,IR.CM
+98,1391,244,Chahar Mahall and Bakhtiari,çÂ«—„Õ«· Ê »Œ Ì«—Ì,IR.CM
+99,1387,211,Chahar Mahall and Bakhtiari,çÂ«—„Õ«· Ê »Œ Ì«—Ì,IR.CM
+100,1393,200,South Khorasan,Œ—«”«‰ Ã‰Ê»Ì,IR.KJ
+101,1388,174,South Khorasan,Œ—«”«‰ Ã‰Ê»Ì,IR.KJ
+102,1389,179,South Khorasan,Œ—«”«‰ Ã‰Ê»Ì,IR.KJ
+103,1394,206,South Khorasan,Œ—«”«‰ Ã‰Ê»Ì,IR.KJ
+104,1387,169,South Khorasan,Œ—«”«‰ Ã‰Ê»Ì,IR.KJ
+105,1392,194,South Khorasan,Œ—«”«‰ Ã‰Ê»Ì,IR.KJ
+106,1385,160,South Khorasan,Œ—«”«‰ Ã‰Ê»Ì,IR.KJ
+107,1390,184,South Khorasan,Œ—«”«‰ Ã‰Ê»Ì,IR.KJ
+108,1395,212,South Khorasan,Œ—«”«‰ Ã‰Ê»Ì,IR.KJ
+109,1391,189,South Khorasan,Œ—«”«‰ Ã‰Ê»Ì,IR.KJ
+110,1386,165,South Khorasan,Œ—«”«‰ Ã‰Ê»Ì,IR.KJ
+111,1388,1601,Razavi Khorasan,Œ—«”«‰ —÷ÊÌ,IR.KV
+112,1393,1923,Razavi Khorasan,Œ—«”«‰ —÷ÊÌ,IR.KV
+113,1395,2076,Razavi Khorasan,Œ—«”«‰ —÷ÊÌ,IR.KV
+114,1391,1783,Razavi Khorasan,Œ—«”«‰ —÷ÊÌ,IR.KV
+115,1389,1659,Razavi Khorasan,Œ—«”«‰ —÷ÊÌ,IR.KV
+116,1394,1998,Razavi Khorasan,Œ—«”«‰ —÷ÊÌ,IR.KV
+117,1390,1717,Razavi Khorasan,Œ—«”«‰ —÷ÊÌ,IR.KV
+118,1387,1543,Razavi Khorasan,Œ—«”«‰ —÷ÊÌ,IR.KV
+119,1392,1852,Razavi Khorasan,Œ—«”«‰ —÷ÊÌ,IR.KV
+120,1385,1428,Razavi Khorasan,Œ—«”«‰ —÷ÊÌ,IR.KV
+121,1386,1485,Razavi Khorasan,Œ—«”«‰ —÷ÊÌ,IR.KV
+122,1394,281,North Khorasan,Œ—«”«‰ ‘„«·Ì,IR.KS
+123,1395,292,North Khorasan,Œ—«”«‰ ‘„«·Ì,IR.KS
+124,1388,225,North Khorasan,Œ—«”«‰ ‘„«·Ì,IR.KS
+125,1393,270,North Khorasan,Œ—«”«‰ ‘„«·Ì,IR.KS
+126,1390,241,North Khorasan,Œ—«”«‰ ‘„«·Ì,IR.KS
+127,1386,208,North Khorasan,Œ—«”«‰ ‘„«·Ì,IR.KS
+128,1391,251,North Khorasan,Œ—«”«‰ ‘„«·Ì,IR.KS
+129,1389,233,North Khorasan,Œ—«”«‰ ‘„«·Ì,IR.KS
+130,1385,200,North Khorasan,Œ—«”«‰ ‘„«·Ì,IR.KS
+131,1387,216,North Khorasan,Œ—«”«‰ ‘„«·Ì,IR.KS
+132,1392,260,North Khorasan,Œ—«”«‰ ‘„«·Ì,IR.KS
+133,1394,1363,Khuzestan,ŒÊ“” «‰,IR.KZ
+134,1389,1064,Khuzestan,ŒÊ“” «‰,IR.KZ
+135,1385,867,Khuzestan,ŒÊ“” «‰,IR.KZ
+136,1390,1113,Khuzestan,ŒÊ“” «‰,IR.KZ
+137,1395,1435,Khuzestan,ŒÊ“” «‰,IR.KZ
+138,1388,1015,Khuzestan,ŒÊ“” «‰,IR.KZ
+139,1393,1296,Khuzestan,ŒÊ“” «‰,IR.KZ
+140,1386,916,Khuzestan,ŒÊ“” «‰,IR.KZ
+141,1391,1171,Khuzestan,ŒÊ“” «‰,IR.KZ
+142,1392,1232,Khuzestan,ŒÊ“” «‰,IR.KZ
+143,1387,965,Khuzestan,ŒÊ“” «‰,IR.KZ
+144,1393,323,Zanjan,“‰Ã«‰,IR.ZA
+145,1389,277,Zanjan,“‰Ã«‰,IR.ZA
+146,1394,336,Zanjan,“‰Ã«‰,IR.ZA
+147,1391,299,Zanjan,“‰Ã«‰,IR.ZA
+148,1392,311,Zanjan,“‰Ã«‰,IR.ZA
+149,1385,236,Zanjan,“‰Ã«‰,IR.ZA
+150,1390,287,Zanjan,“‰Ã«‰,IR.ZA
+151,1395,350,Zanjan,“‰Ã«‰,IR.ZA
+152,1388,267,Zanjan,“‰Ã«‰,IR.ZA
+153,1386,246,Zanjan,“‰Ã«‰,IR.ZA
+154,1387,257,Zanjan,“‰Ã«‰,IR.ZA
+155,1388,176,Semnan,”„‰«‰,IR.SM
+156,1393,204,Semnan,”„‰«‰,IR.SM
+157,1391,192,Semnan,”„‰«‰,IR.SM
+158,1389,181,Semnan,”„‰«‰,IR.SM
+159,1394,211,Semnan,”„‰«‰,IR.SM
+160,1386,165,Semnan,”„‰«‰,IR.SM
+161,1387,171,Semnan,”„‰«‰,IR.SM
+162,1392,198,Semnan,”„‰«‰,IR.SM
+163,1385,160,Semnan,”„‰«‰,IR.SM
+164,1390,186,Semnan,”„‰«‰,IR.SM
+165,1395,217,Semnan,”„‰«‰,IR.SM
+166,1385,470,Sistan and Baluchestan,”Ì” «‰ Ê »·Êç” «‰,IR.SB
+167,1390,588,Sistan and Baluchestan,”Ì” «‰ Ê »·Êç” «‰,IR.SB
+168,1395,737,Sistan and Baluchestan,”Ì” «‰ Ê »·Êç” «‰,IR.SB
+169,1388,541,Sistan and Baluchestan,”Ì” «‰ Ê »·Êç” «‰,IR.SB
+170,1393,674,Sistan and Baluchestan,”Ì” «‰ Ê »·Êç” «‰,IR.SB
+171,1394,705,Sistan and Baluchestan,”Ì” «‰ Ê »·Êç” «‰,IR.SB
+172,1386,494,Sistan and Baluchestan,”Ì” «‰ Ê »·Êç” «‰,IR.SB
+173,1391,616,Sistan and Baluchestan,”Ì” «‰ Ê »·Êç” «‰,IR.SB
+174,1389,565,Sistan and Baluchestan,”Ì” «‰ Ê »·Êç” «‰,IR.SB
+175,1387,517,Sistan and Baluchestan,”Ì” «‰ Ê »·Êç” «‰,IR.SB
+176,1392,644,Sistan and Baluchestan,”Ì” «‰ Ê »·Êç” «‰,IR.SB
+177,1393,1421,Fars,›«—”,IR.FA
+178,1394,1485,Fars,›«—”,IR.FA
+179,1392,1361,Fars,›«—”,IR.FA
+180,1385,1023,Fars,›«—”,IR.FA
+181,1390,1251,Fars,›«—”,IR.FA
+182,1395,1551,Fars,›«—”,IR.FA
+183,1388,1160,Fars,›«—”,IR.FA
+184,1389,1205,Fars,›«—”,IR.FA
+185,1386,1068,Fars,›«—”,IR.FA
+186,1391,1305,Fars,›«—”,IR.FA
+187,1387,1114,Fars,›«—”,IR.FA
+188,1393,394,Qazvin,ﬁ“ÊÌ‰,IR.QZ
+189,1388,329,Qazvin,ﬁ“ÊÌ‰,IR.QZ
+190,1389,341,Qazvin,ﬁ“ÊÌ‰,IR.QZ
+191,1394,409,Qazvin,ﬁ“ÊÌ‰,IR.QZ
+192,1387,318,Qazvin,ﬁ“ÊÌ‰,IR.QZ
+193,1392,380,Qazvin,ﬁ“ÊÌ‰,IR.QZ
+194,1385,295,Qazvin,ﬁ“ÊÌ‰,IR.QZ
+195,1390,353,Qazvin,ﬁ“ÊÌ‰,IR.QZ
+196,1395,425,Qazvin,ﬁ“ÊÌ‰,IR.QZ
+197,1391,366,Qazvin,ﬁ“ÊÌ‰,IR.QZ
+198,1386,306,Qazvin,ﬁ“ÊÌ‰,IR.QZ
+199,1388,298,Qom,ﬁ„,IR.QM
+200,1393,363,Qom,ﬁ„,IR.QM
+201,1395,394,Qom,ﬁ„,IR.QM
+202,1391,334,Qom,ﬁ„,IR.QM
+203,1389,309,Qom,ﬁ„,IR.QM
+204,1394,378,Qom,ﬁ„,IR.QM
+205,1390,321,Qom,ﬁ„,IR.QM
+206,1387,286,Qom,ﬁ„,IR.QM
+207,1392,348,Qom,ﬁ„,IR.QM
+208,1385,262,Qom,ﬁ„,IR.QM
+209,1386,274,Qom,ﬁ„,IR.QM
+210,1394,467,Kordestan,ﬂ—œ” «‰,IR.KD
+211,1395,485,Kordestan,ﬂ—œ” «‰,IR.KD
+212,1388,376,Kordestan,ﬂ—œ” «‰,IR.KD
+213,1393,450,Kordestan,ﬂ—œ” «‰,IR.KD
+214,1390,402,Kordestan,ﬂ—œ” «‰,IR.KD
+215,1386,351,Kordestan,ﬂ—œ” «‰,IR.KD
+216,1391,417,Kordestan,ﬂ—œ” «‰,IR.KD
+217,1389,389,Kordestan,ﬂ—œ” «‰,IR.KD
+218,1385,338,Kordestan,ﬂ—œ” «‰,IR.KD
+219,1387,364,Kordestan,ﬂ—œ” «‰,IR.KD
+220,1392,433,Kordestan,ﬂ—œ” «‰,IR.KD
+221,1394,958,Kerman,ﬂ—„«‰,IR.KE
+222,1389,752,Kerman,ﬂ—„«‰,IR.KE
+223,1385,616,Kerman,ﬂ—„«‰,IR.KE
+224,1390,786,Kerman,ﬂ—„«‰,IR.KE
+225,1395,1006,Kerman,ﬂ—„«‰,IR.KE
+226,1388,718,Kerman,ﬂ—„«‰,IR.KE
+227,1393,911,Kerman,ﬂ—„«‰,IR.KE
+228,1386,650,Kerman,ﬂ—„«‰,IR.KE
+229,1391,826,Kerman,ﬂ—„«‰,IR.KE
+230,1392,868,Kerman,ﬂ—„«‰,IR.KE
+231,1387,684,Kerman,ﬂ—„«‰,IR.KE
+232,1393,591,Kermanshah,ﬂ—„«‰‘«Â,IR.BK
+233,1389,514,Kermanshah,ﬂ—„«‰‘«Â,IR.BK
+234,1394,613,Kermanshah,ﬂ—„«‰‘«Â,IR.BK
+235,1391,551,Kermanshah,ﬂ—„«‰‘«Â,IR.BK
+236,1392,571,Kermanshah,ﬂ—„«‰‘«Â,IR.BK
+237,1385,446,Kermanshah,ﬂ—„«‰‘«Â,IR.BK
+238,1390,531,Kermanshah,ﬂ—„«‰‘«Â,IR.BK
+239,1395,635,Kermanshah,ﬂ—„«‰‘«Â,IR.BK
+240,1388,497,Kermanshah,ﬂ—„«‰‘«Â,IR.BK
+241,1386,463,Kermanshah,ﬂ—„«‰‘«Â,IR.BK
+242,1387,480,Kermanshah,ﬂ—„«‰‘«Â,IR.BK
+254,1388,144,Kohgiluyeh and Buyer Ahmad,ﬂÂêÌ·ÊÌÂ Ê »ÊÌ—«Õ„œ,IR.KB
+255,1393,178,Kohgiluyeh and Buyer Ahmad,ﬂÂêÌ·ÊÌÂ Ê »ÊÌ—«Õ„œ,IR.KB
+256,1391,163,Kohgiluyeh and Buyer Ahmad,ﬂÂêÌ·ÊÌÂ Ê »ÊÌ—«Õ„œ,IR.KB
+257,1389,150,Kohgiluyeh and Buyer Ahmad,ﬂÂêÌ·ÊÌÂ Ê »ÊÌ—«Õ„œ,IR.KB
+258,1394,186,Kohgiluyeh and Buyer Ahmad,ﬂÂêÌ·ÊÌÂ Ê »ÊÌ—«Õ„œ,IR.KB
+259,1386,132,Kohgiluyeh and Buyer Ahmad,ﬂÂêÌ·ÊÌÂ Ê »ÊÌ—«Õ„œ,IR.KB
+260,1387,138,Kohgiluyeh and Buyer Ahmad,ﬂÂêÌ·ÊÌÂ Ê »ÊÌ—«Õ„œ,IR.KB
+261,1392,171,Kohgiluyeh and Buyer Ahmad,ﬂÂêÌ·ÊÌÂ Ê »ÊÌ—«Õ„œ,IR.KB
+262,1385,127,Kohgiluyeh and Buyer Ahmad,ﬂÂêÌ·ÊÌÂ Ê »ÊÌ—«Õ„œ,IR.KB
+263,1390,156,Kohgiluyeh and Buyer Ahmad,ﬂÂêÌ·ÊÌÂ Ê »ÊÌ—«Õ„œ,IR.KB
+264,1395,195,Kohgiluyeh and Buyer Ahmad,ﬂÂêÌ·ÊÌÂ Ê »ÊÌ—«Õ„œ,IR.KB
+265,1385,380,Golestan,ê·” «‰,IR.GO
+266,1390,483,Golestan,ê·” «‰,IR.GO
+267,1395,614,Golestan,ê·” «‰,IR.GO
+268,1388,442,Golestan,ê·” «‰,IR.GO
+269,1393,558,Golestan,ê·” «‰,IR.GO
+270,1394,586,Golestan,ê·” «‰,IR.GO
+271,1386,401,Golestan,ê·” «‰,IR.GO
+272,1391,507,Golestan,ê·” «‰,IR.GO
+273,1389,463,Golestan,ê·” «‰,IR.GO
+274,1387,421,Golestan,ê·” «‰,IR.GO
+275,1392,532,Golestan,ê·” «‰,IR.GO
+276,1393,856,Gilan,êÌ·«‰,IR.GI
+277,1394,884,Gilan,êÌ·«‰,IR.GI
+278,1392,829,Gilan,êÌ·«‰,IR.GI
+279,1385,670,Gilan,êÌ·«‰,IR.GI
+280,1390,778,Gilan,êÌ·«‰,IR.GI
+281,1395,914,Gilan,êÌ·«‰,IR.GI
+282,1388,734,Gilan,êÌ·«‰,IR.GI
+283,1389,756,Gilan,êÌ·«‰,IR.GI
+284,1386,691,Gilan,êÌ·«‰,IR.GI
+285,1391,803,Gilan,êÌ·«‰,IR.GI
+286,1387,713,Gilan,êÌ·«‰,IR.GI
+287,1393,517,Lorestan,·—” «‰,IR.LO
+288,1388,431,Lorestan,·—” «‰,IR.LO
+289,1389,447,Lorestan,·—” «‰,IR.LO
+290,1394,537,Lorestan,·—” «‰,IR.LO
+291,1387,415,Lorestan,·—” «‰,IR.LO
+292,1392,498,Lorestan,·—” «‰,IR.LO
+293,1385,384,Lorestan,·—” «‰,IR.LO
+294,1390,463,Lorestan,·—” «‰,IR.LO
+295,1395,557,Lorestan,·—” «‰,IR.LO
+296,1391,480,Lorestan,·—” «‰,IR.LO
+297,1386,400,Lorestan,·—” «‰,IR.LO
+298,1388,872,Mazandaran,„«“‰œ—«‰,IR.MN
+299,1393,1033,Mazandaran,„«“‰œ—«‰,IR.MN
+300,1395,1107,Mazandaran,„«“‰œ—«‰,IR.MN
+301,1391,964,Mazandaran,„«“‰œ—«‰,IR.MN
+302,1389,902,Mazandaran,„«“‰œ—«‰,IR.MN
+303,1394,1070,Mazandaran,„«“‰œ—«‰,IR.MN
+304,1390,931,Mazandaran,„«“‰œ—«‰,IR.MN
+305,1387,843,Mazandaran,„«“‰œ—«‰,IR.MN
+306,1392,998,Mazandaran,„«“‰œ—«‰,IR.MN
+307,1385,784,Mazandaran,„«“‰œ—«‰,IR.MN
+308,1386,813,Mazandaran,„«“‰œ—«‰,IR.MN
+309,1394,488,Markazi,„—ﬂ“Ì,IR.MK
+310,1395,505,Markazi,„—ﬂ“Ì,IR.MK
+311,1388,402,Markazi,„—ﬂ“Ì,IR.MK
+312,1393,471,Markazi,„—ﬂ“Ì,IR.MK
+313,1390,427,Markazi,„—ﬂ“Ì,IR.MK
+314,1386,377,Markazi,„—ﬂ“Ì,IR.MK
+315,1391,441,Markazi,„—ﬂ“Ì,IR.MK
+316,1389,414,Markazi,„—ﬂ“Ì,IR.MK
+317,1385,365,Markazi,„—ﬂ“Ì,IR.MK
+318,1387,390,Markazi,„—ﬂ“Ì,IR.MK
+319,1392,456,Markazi,„—ﬂ“Ì,IR.MK
+320,1394,492,Hormozgan,Â—„“ê«‰,IR.HG
+321,1389,379,Hormozgan,Â—„“ê«‰,IR.HG
+322,1385,305,Hormozgan,Â—„“ê«‰,IR.HG
+323,1390,397,Hormozgan,Â—„“ê«‰,IR.HG
+324,1395,520,Hormozgan,Â—„“ê«‰,IR.HG
+325,1388,360,Hormozgan,Â—„“ê«‰,IR.HG
+326,1393,467,Hormozgan,Â—„“ê«‰,IR.HG
+327,1386,323,Hormozgan,Â—„“ê«‰,IR.HG
+328,1391,419,Hormozgan,Â—„“ê«‰,IR.HG
+329,1392,442,Hormozgan,Â—„“ê«‰,IR.HG
+330,1387,342,Hormozgan,Â—„“ê«‰,IR.HG
+331,1393,560,Hamadan,Â„œ«‰,IR.HD
+332,1389,491,Hamadan,Â„œ«‰,IR.HD
+333,1394,579,Hamadan,Â„œ«‰,IR.HD
+334,1391,524,Hamadan,Â„œ«‰,IR.HD
+335,1392,542,Hamadan,Â„œ«‰,IR.HD
+336,1385,428,Hamadan,Â„œ«‰,IR.HD
+337,1390,507,Hamadan,Â„œ«‰,IR.HD
+338,1395,599,Hamadan,Â„œ«‰,IR.HD
+339,1388,475,Hamadan,Â„œ«‰,IR.HD
+340,1386,444,Hamadan,Â„œ«‰,IR.HD
+341,1387,460,Hamadan,Â„œ«‰,IR.HD
+342,1388,290,Yazd,Ì“œ,IR.YA
+343,1393,346,Yazd,Ì“œ,IR.YA
+344,1391,322,Yazd,Ì“œ,IR.YA
+345,1389,300,Yazd,Ì“œ,IR.YA
+346,1394,359,Yazd,Ì“œ,IR.YA
+347,1386,269,Yazd,Ì“œ,IR.YA
+348,1387,279,Yazd,Ì“œ,IR.YA
+349,1392,334,Yazd,Ì“œ,IR.YA
+350,1385,259,Yazd,Ì“œ,IR.YA
+351,1390,310,Yazd,Ì“œ,IR.YA
+352,1395,373,Yazd,Ì“œ,IR.YA

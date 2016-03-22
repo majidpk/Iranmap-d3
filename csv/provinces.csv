@@ -1,0 +1,32 @@
+code,name,filename,pername
+IR.EA,East Azerbayjan,east,آذربا?جان شرق?
+IR.WA,West Azerbayjan,west,آذربا?جان غرب?
+IR.AR,Ardabil,ardabil,اردب?ل
+IR.ES,Esfehan,isfahan,اصفهان
+IR.AL,Alborz,alborz,البرز
+IR.IL,Ilam,ilam,ا?لام
+IR.BS,Bushehr,bushehr,بوشهر
+IR.TH,Tehran,tehran,تهران
+IR.CM,Chahr Mahal and Bakhtiari,charmahal,چهارمحال و بخت?ار?
+IR.KJ,South Khorasan,khoras_s,خراسان جنوب?
+IR.KV,Razavi khorasan,khoras_r,خراسان رضو?
+IR.KS,North Khorasan,khoras_n,خراسان شمال?
+IR.KZ,Khuzestan,khuzestan,خوزستان
+IR.ZA,Zanjan,zanjan,زنجان
+IR.SM,Semnan,semnan,سمنان
+IR.SB,Sistan and Baluchestan,sistan,س?ستان و بلوچستان
+IR.FA,Fars,fars,فارس
+IR.QZ,Qazvin,qazvin,قزو?ن
+IR.QM,Qom,qom,قم
+IR.KD,Kordestan,kordestan,کردستان
+IR.KE,Kerman,kerman,کرمان
+IR.BK,Kermanshah,kermanshah,کرمانشاه
+IR.KB,Kohgiluye and Boyerahmad,kohgil,کهگ?لو?ه و بو?راحمد
+IR.GO,Golestan,golestan,گلستان
+IR.GI,Gilan,gilan,گ?لان
+IR.LO,Lorestan,lorestan,لرستان
+IR.MN,Mazandaran,mazan,مازندران
+IR.MK,Markazi,markazi,مرکز?
+IR.HG,Hormozgan,hormozgan,هرمزگان
+IR.HD,Hamadan,hamadan,همدان
+IR.YA,Yazd,yazd,?زد
