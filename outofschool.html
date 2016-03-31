@@ -1,0 +1,526 @@
+<html>
+	
+    <script src="js/d3.v3.min.js" src1='http://d3js.org/d3.v3.min.js' charset="utf-8" type='text/javascript'></script>
+    <script src="js/topojson.v1.min.js" src1='http://d3js.org/topojson.v1.min.js' type='text/javascript'></script>
+    <script src="js/datamaps.all.min.js" src1='http://datamaps.github.io/scripts/datamaps.all.min.js' type='text/javascript'></script>
+    <script src="js/handlebars.min.js" src1='http://cdnjs.cloudflare.com/ajax/libs/handlebars.js/1.0.0/handlebars.min.js' type='text/javascript'></script>
+	<script src="js/queue.v1.min.js" src1="http://d3js.org/queue.v1.min.js"></script>
+	<head>
+		<link rel="stylesheet" type="text/css" href="css/outofschool.css">
+	</head>
+	<body>
+
+		<header>
+			<input id="yearSlider" type="range" min="1385" max="1395" value="1385" oninput="yearChange(value)">1385</input>
+		</header>
+		<div id="main">
+		</div>
+		<div id="aside">
+			<div id="ostan"><svg id="ostansvg" /></div>
+			<div id="LineChart" />
+		</div>
+	</body>
+	<script>
+		var csvUrl = "csv/Population_timeSeries_Provinces.csv"; //"https://dl.dropboxusercontent.com/s/4ue1lprzqwsiz0y/Population_timeSeries_Provinces.csv";
+		var topoUrl = "topo/piran-.json"; // "https://dl.dropboxusercontent.com/s/ytz7j0czwfxc50c/piran-.json"; 
+		var csvUrl2 = "csv/Population.csv"; //"https://dl.dropboxusercontent.com/s/0qyo4poife93rjz/Population.csv";
+		var csvProvUrl = "csv/Provinces.csv";
+		var oosCsvUrl = "csv/out_of_school_children_1390.csv";
+		
+		var attributeArray =[ ];
+		var _csvData = [];
+		var _provData = [];
+		var _oosData = [];
+		
+		var width = 1200, height = 800;
+		var projection = d3.geo.mercator()
+			.center([51, 32])
+			.scale(2000)
+			.translate([350, height / 2]);
+		
+		var tooltip = d3.select("body").append("div")
+			.attr("class", "hidden tooltip");
+		var tooltip2 = d3.select("body").append("div")
+			.attr("class", "hidden tooltip");
+		
+		var path = d3.geo.path()
+			.projection(projection);
+		
+		var map = d3.map();
+		
+		var quantize = d3.scale.quantize()
+			.domain([100, 4000])
+			.range(d3.range(11).map(function (i) { return "q" + i + "-11"}));		
+						
+		//var colorInterpolator = d3.interpolateRgb(#ffffff, #ff0000);				
+						
+		var svg = d3.select("#main").append('svg')
+			.attr('width', width)
+			.attr('height', height);
+		
+		queue()
+			.defer(d3.csv, csvProvUrl)
+			.defer(d3.csv, csvUrl2)
+			.defer(d3.json, topoUrl)
+			.defer(d3.csv, oosCsvUrl)
+			.await(ready);
+		
+		function ready(error, provData, csvData, topodata, oosData)
+		{
+			if (error) throw error;
+		  // function accepts any errors from the queue function as first argument, then
+		  // each data object in the order of chained defer() methods above
+			console.log(topodata);
+			//console.log(popData);
+/*		  var provinces = topodata.objects.piran.geometries;  // store the path in variable for ease
+		  for (var i in provinces) {    // for each geometry object
+			for (var j in csvData) {  // for each row in the CSV
+			  //console.log(popData[j]);
+			  //console.log(provinces[i]);
+			  if (provinces[i].id == csvData[j].Code) {   // if they match
+				for(var k in csvData[i]) {   // for each column in the a row within the CSV
+				  if(k != 'name' && k != 'id') {  // let's not add the name or id as props since we already have them
+					if(attributeArray.indexOf(k) == -1) { 
+					   attributeArray.push(k);  // add new column headings to our array for later
+					}
+					provinces[i].properties[k] = Number(popData[j][k])  // add each CSV column key/value to geometry object
+				  } 
+				}
+				break;  // stop looking through the CSV since we made our match
+			  }
+			}
+		  }
+  d3.select('#clock').html(attributeArray[currentAttribute]);  // populate the clock initially with the current year
+  drawMap(piran);  // 
+	*/	
+			//console.log(csvData);
+			_csvData = csvData;
+			_provData = provData;
+			_oosData = oosData;
+			var topo = topojson.feature(topodata, topodata.objects.piran);
+			
+			svg.append("g")
+				.attr("class", "provinces")
+				.selectAll('path')
+					.data(topo.features)
+				.enter().append('path')
+				.attr('d', path)
+				.attr('class', 'province')
+				.attr('id', function(d) { return d.id })
+				.on("mousemove", function (d) {
+					var mouse = d3.mouse(svg.node()).map(function (d) {
+						return parseInt(d);
+					});
+					tooltip.classed('hidden', false)
+						.attr('style', 'left:' + (mouse[0]+15) + 'px; top:' + (mouse[1]-35) + 'px')
+						.html(this.getAttribute('pername') + "<br>" + this.getAttribute('pop'));
+					})
+				.on("mouseout", function() {
+					tooltip.classed('hidden', true)
+				})
+				.on("click", function(d) { 
+					//drawOstan(d); 
+					drawBarChart(d); 
+					drawBarChart2(d);
+				});
+			drawlegend(quantize);
+			yearChange(1385);
+		}
+		
+		function drawOstan(d)
+		{
+			//console.log(d);
+			var data = _provData.find( function(x) { return x.code == d.id});
+
+			d3.select("#ostan")
+				.select("h").remove();
+			d3.select("#ostan")
+				.append("h")
+				.text(data.pername);
+			topoUrl = 'topo/C' + data.filename + '-.json';
+			//console.log(topoUrl);
+			
+			queue()
+				.defer(d3.json, topoUrl)
+				.await( function (error, topoj) 
+					{				
+						var width = 400;
+						var height = 400;
+						ostanSvg = d3.select("#ostansvg")
+							.attr('width', width)
+							.attr('height', height);
+						var topo = topojson.feature(topoj, topoj.objects['C'+data.filename]);
+						
+						  var center = d3.geo.centroid(topo)
+						  var scale  = 150;
+						  var offset = [width/2, height/2];
+						  var projection = d3.geo.mercator().scale(scale).center(center)
+							  .translate(offset);
+
+						  // create the path
+						  var path = d3.geo.path().projection(projection);
+
+						  // using the path determine the bounds of the current map and use 
+						  // these to determine better values for the scale and translation
+						  var bounds  = path.bounds(topo);
+						  var hscale  = scale*width  / (bounds[1][0] - bounds[0][0]);
+						  var vscale  = scale*height / (bounds[1][1] - bounds[0][1]);
+						  var scale   = (hscale < vscale) ? hscale : vscale;
+						  //scale = scale * 0.9;
+						  var offset  = [width - (bounds[0][0] + bounds[1][0])/2,
+											height - (bounds[0][1] + bounds[1][1])/2];
+
+						  // new projection
+						  projection = d3.geo.mercator().center(center)
+							.scale(scale).translate(offset);
+						  path = path.projection(projection);
+						
+						ostanSvg.selectAll("g")
+							.remove();
+						ostanSvg.append("g")
+							.attr("class", "subunit")
+							.selectAll('path')
+								.data(topo.features)
+							.enter().append('path')
+							.attr('d', path)
+							.attr('class', 'subunit')
+							.attr('id', function(d) { return d.id })
+							.on("mousemove", function (d) {
+								var mouse = d3.mouse(svg.node()).map(function (d) {
+									return parseInt(d);
+								});
+								tooltip.classed('hidden', false)
+									.attr('style', 'left:' + (mouse[0]+15) + 'px; top:' + (mouse[1]-35) + 'px')
+									.html(this.getAttribute('id') + "<br>" + this.getAttribute('pop'));
+								})
+							.on("mouseout", function() {
+								tooltip.classed('hidden', true)
+							})
+							.on("click", function(d) { drawOstan(d); });
+						//drawlegend(quantize);
+						//yearChange(1385);
+					});
+		}
+		
+		function drawLineChart(d)
+		{
+			var margin = { top: 10, right: 50, bottom: 10, left: 50 };
+			var width = 400 - margin.right - margin.left, 
+				height = 400 - margin.top - margin.bottom;
+			data = _csvData.find( function(x) { return x.Code == d.id});
+			lineData = [];
+			for (k in data)
+			{
+				if (data.hasOwnProperty(k) && !isNaN(k)) {
+					lineData.push({x: +k, y: +data[k]});
+				}
+			}
+			var x = d3.scale.linear()
+				.range([0, width]);
+
+			var y = d3.scale.linear()
+				.range([height, 0]);
+
+			var xAxis = d3.svg.axis()
+				.scale(x)
+				.orient("bottom");
+
+			var yAxis = d3.svg.axis()
+				.scale(y)
+				.orient("left");
+
+			var line = d3.svg.line()
+				.x(function(d) { return x(+d.x) })
+				.y(function(d) { return y(+d.y) });
+
+			
+			x.domain(d3.extent(lineData, function(d) { return d.x; } )); //[1385, 1395]);
+			y.domain(d3.extent(lineData, function(d) { return d.y; } )); //[100, 4000]);
+
+			svg = d3.select("#LineChart")
+				.attr('width', width + margin.left + margin.right)
+				.attr('height', height + margin.top + margin.bottom);
+		
+			svg.selectAll("svg")
+				.remove();
+						
+			svg = svg.append('svg')
+				.attr('width', width + margin.left + margin.right)
+				.attr('height', height + margin.top + margin.bottom)
+				.append('g')
+					.attr('transform', 'translate(' + margin.left + ', ' + margin.top + ')');
+			
+			svg.append("g")
+				.attr("class", "x axis")
+				.attr("transform", "translate(0," + height + ")")
+				.call(xAxis);
+
+			svg.append("g")
+				.attr("class", "y axis")
+				.call(yAxis)
+			.append("text")
+				.attr("transform", "rotate(-90)")
+				.attr("y", 6)
+				.attr("dy", ".71em")
+				.style("text-anchor", "end")
+				.text("Population");
+
+			svg.selectAll(".line")
+				.remove();
+			
+			svg.append("path")
+				.datum(lineData)
+				.attr("class", "line")
+				.attr("d", line);
+		}
+		
+		function drawBarChart(d)
+		{
+			var margin = {top: 10, right: 50, bottom: 30, left: 50},
+				width = 400 - margin.left - margin.right,
+				height = 400 - margin.top - margin.bottom;
+
+			var x = d3.scale.ordinal()
+				.rangeRoundBands([0, width], .1);
+
+			var y = d3.scale.linear()
+				.range([height, 0]);
+
+			var xAxis = d3.svg.axis()
+				.scale(x)
+				.orient("bottom");
+
+			var yAxis = d3.svg.axis()
+				.scale(y)
+				.orient("left")
+				.ticks(10, "%");
+
+			var svg = d3.select("#LineChart")
+				.attr("width", width + margin.left + margin.right)
+				.attr("height", height + margin.top + margin.bottom);
+				
+			svg.selectAll("svg")
+				.remove();
+			
+			svg = svg.append("svg")
+				.attr("width", width + margin.left + margin.right)
+				.attr("height", height + margin.top + margin.bottom)
+			.append("g")
+				.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+			  			  
+			  var oosData = d3.nest()
+				.key(function (d) { return d.age; })
+				.rollup(function(d) {
+					return d3.sum(d, function(h) { return h["population.not.ed"]; }) / d3.sum(d, function (g) { return g["population.total"]; }); 
+				}).entries(
+					_oosData.filter(function (p) { return p.Code == d.id; } )
+					);
+				
+			oosData.forEach(function (d) {
+				d.age = d.key;
+				d.pop = d.values;
+			});
+			  
+			  x.domain(oosData.map(function(d) { return d.age; }));
+			  y.domain([0, 2*d3.max(oosData, function(d) { return d.pop; })]);
+
+			  svg.append("g")
+				  .attr("class", "x axis")
+				  .attr("transform", "translate(0," + height + ")")
+				  .call(xAxis)
+				.append("text")
+				  .attr("x", width)
+				  .attr("dy", ".71em")
+				  .style("text-anchor", "start")
+				  .text("age");
+
+			  svg.append("g")
+				  .attr("class", "y axis")
+				  .call(yAxis)
+				.append("text")
+				  .attr("transform", "rotate(-90)")
+				  .attr("y", 6)
+				  .attr("dy", ".71em")
+				  .style("text-anchor", "end")
+				  .text("percent oos");
+
+			  svg.selectAll(".bar")
+				  .data(oosData)
+				.enter().append("rect")
+				  .attr("class", "bar")
+				  .attr("x", function(d) { return x(d.age); })
+				  .attr("width", x.rangeBand())
+				  .attr("y", function(d) { return y(d.pop); })
+				  .attr("height", function(d) { return height - y(d.pop); })
+				  .attr("pop", function(d) { return d.pop;} )
+				  .attr("age", function(d) { return d.age; })
+				  .on("mousemove", function (d) {
+						/*var mouse = d3.mouse(this).map(function (d) {
+							return parseInt(d);
+						});*/
+						tooltip2.classed('hidden', false)
+							.attr('style', 'left:' + (d3.event.pageX+15) + 'px; top:' + (d3.event.pageY-35) + 'px')
+							.html(this.getAttribute('age') + "<br>" + this.getAttribute('pop'));
+						})
+					.on("mouseout", function() {
+						tooltip2.classed('hidden', true)
+				});
+					
+			function type(d) {
+			  d.pop = +d.pop;
+			  return d;
+			}
+
+		}
+
+		function drawBarChart2(d)
+		{
+			var margin = {top: 10, right: 50, bottom: 30, left: 50},
+				width = 400 - margin.left - margin.right,
+				height = 400 - margin.top - margin.bottom;
+
+			var y = d3.scale.ordinal()
+				.rangeRoundBands([height, 0], .1);
+
+			var x = d3.scale.linear()
+				.range([0, width]);
+
+			var yAxis = d3.svg.axis()
+				.scale(y)
+				.orient("left");
+
+			var xAxis = d3.svg.axis()
+				.scale(x)
+				.orient("bottom")
+				.ticks(10, "%");
+			
+			var svg = d3.select("#ostansvg")
+				.attr("width", width + margin.left + margin.right)
+				.attr("height", height + margin.top + margin.bottom);
+				
+			svg.selectAll("g")
+				.remove();
+			
+			svg = svg.append("g")
+				.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+			  			  
+			  var oosData = d3.nest()
+				.key(function (d) { return d.city; })
+				.rollup(function(d) {
+					return d3.sum(d, function(h) { return h["population.not.ed"] }) / d3.sum(d, function (g) { return g["population.total"]; }); 
+				}).entries(
+					_oosData.filter(function (p) { return p.Code == d.id; } )
+					);
+				
+			oosData.forEach(function (d) {
+				d.city = d.key;
+				d.pop = d.values;
+			});
+			  
+			  y.domain(oosData.map(function(d) { return d.city; }));
+			  x.domain([0, 2*d3.max(oosData, function(d) { return d.pop; })]);
+
+			  svg.append("g")
+				  .attr("class", "x axis")
+				  .attr("transform", "translate(0," + height + ")")
+				  .call(xAxis);
+
+			  svg.append("g")
+				  .attr("class", "y axis")
+				  //.attr("transform", "rotate(-90)")
+				  .call(yAxis)
+				.append("text")
+				  .attr("transform", "rotate(-90)")
+				  .attr("y", 6)
+				  .attr("dy", ".71em")
+				  .style("text-anchor", "end")
+				  .text("Population");
+
+			  svg.selectAll(".bar")
+				  .data(oosData)
+				.enter().append("rect")
+				  .attr("class", "bar")
+				  .attr("x", 0)//function(d) { return x(d.city); })
+				  .attr("height", y.rangeBand())
+				  .attr("y", function(d) {return y(d.city); })
+				  .attr("width", function(d) { return x(d.pop); })
+				  .attr("pop", function(d) { return d.pop;} )
+				  .attr("city", function(d) { return d.city; })
+				  .on("mousemove", function (d) {
+						/*var mouse = d3.mouse(this).map(function (d) {
+							return parseInt(d);
+						});*/
+						tooltip2.classed('hidden', false)
+							.attr('style', 'left:' + (d3.event.pageX+15) + 'px; top:' + (d3.event.pageY-35) + 'px')
+							.html(this.getAttribute('city') + "<br>" + this.getAttribute('pop'));
+						})
+					.on("mouseout", function() {
+						tooltip2.classed('hidden', true)
+				});
+
+			function type(d) {
+			  d.pop = +d.pop;
+			  return d;
+			}
+
+		}
+
+		
+		function yearChange(value)
+		{
+			//$yearSlider.text = value;
+			d3.selectAll("path")
+				//.data(_csvData, function(d) { console.log(d.Code); return d.Code})
+				/*.attr("class", function(d) { 
+					provData = _csvData.find(function(x) { return x.Code == d.id})
+					return quantize(provData[value]); 
+				})*/
+				.attr("style", function(d) {
+					provData = _csvData.find(function(x) { return x.Code == d.id});
+					colr = 255;
+					colg = Math.round(255 - provData[value] / 3000 * 255);
+					colb = Math.round(255 - provData[value] / 3000 * 255);
+					return "fill: rgb(" + colr + ',' + colg + ',' + colb + ')'; 
+				})
+				.attr("pername", function(d) {
+					provData = _csvData.find(function(x) { return x.Code == d.id});
+					return provData['pername'];					
+				})
+				.attr("pop", function(d) {
+					provData = _csvData.find(function(x) { return x.Code == d.id});
+					return provData[value];					
+				});
+		}
+		
+		function createColors()
+		{
+			
+		}
+		
+		function drawlegend(quantize)
+		{
+			var color_domain = [50, 150, 350, 750, 1500]
+			var ext_color_domain = [100, 100+354, 100 + 2*354, 100 + 3*354, 100 + 4*354, 
+				100+5*354, 100 + 6*354, 100 + 7*354, 100 + 8*354, 100+9*354, 100 + 10*354]
+			var legend_labels = ["<= 100", "450+", "800+", "1150+", "1500+", "1850+", "2200+", "2550+", "2900+", "3250+", "> 3250"] 
+			var legend = svg.selectAll("g.legend")
+				.data(ext_color_domain)
+				.enter().append("g")
+				.attr('class', 'legend');
+			
+			var ls_w = 20, ls_h = 20;
+			
+			legend.append("rect")
+				.attr("x", 20)
+				.attr("y", function(d, i) { return height - 100 - (i*ls_h) - 2 *ls_h; })
+				.attr("width", ls_w)
+				.attr("height", ls_h)
+				.attr("class", function (d, i) { return quantize.range()[i]; })
+				
+			legend.append("text")
+				.attr("x", 50)
+				.attr("y", function(d, i) { return height - 100- (i*ls_h) - 2*ls_h;})
+				.text(function(d, i) { return legend_labels[i]; });
+		}
+	</script>
+</html>
