@@ -1,5 +1,5 @@
-<html>
-	
+<html>	
+	<meta charset="UTF-8">
     <script src="js/d3.v3.min.js" src1='http://d3js.org/d3.v3.min.js' charset="utf-8" type='text/javascript'></script>
     <script src="js/topojson.v1.min.js" src1='http://d3js.org/topojson.v1.min.js' type='text/javascript'></script>
     <script src="js/datamaps.all.min.js" src1='http://datamaps.github.io/scripts/datamaps.all.min.js' type='text/javascript'></script>
@@ -9,122 +9,466 @@
 		<link rel="stylesheet" type="text/css" href="css/outofschool.css">
 	</head>
 	<body>
+		<script>			
+			function subsetChanged (redrawMap) {
+				isOstan = getRadioVal("locType");
+				filterData();
+				if (redrawMap)
+				{
+					drawMap(topoData);
+					curLocID = isOstan == 0 ? "2301" : "23";
+				}
+				drawBarCharts(curLocID);
+				yearChange(curYear);
+			}
+			
+			function repValueChanged() {
+				//console.log(valueSelector.value);
+			}
+			
+			function getRadioVal(radioName) {
+				var val;
+				var radios = document.getElementsByName(radioName);
 
+				for (var i = 0, length = radios.length; i < length; i++) {
+					if (radios[i].checked) {
+						// do whatever you want with the checked radio
+						val = radios[i].value;
+						// only one radio can be logically checked, don't check the rest
+						break;
+					}
+				}
+				return val;
+			}
+		
+			// Return an array of the selected opion values
+			// select is an HTML select element
+			function getSelectValues (select) {
+			  var result = [];
+			  var options = select && select.options;
+			  var opt;
+
+			  for (var i=0, iLen=options.length; i<iLen; i++) {
+				opt = options[i];
+
+				if (opt.selected) {
+				  result.push(opt.value || opt.text);
+				}
+			  }
+			  return result;
+			}
+
+		</script>
 		<header>
-			<input id="yearSlider" type="range" min="1385" max="1395" value="1385" oninput="yearChange(value)">1385</input>
+			<form action="javascript:subsetChanged(false)">
+<table border=0 style="direction:rtl" width="100%">
+	<tr>
+		<td>
+				<!--<div class="subsetGroup">-->
+					<select class="subset" id="sexSubset" multiple value="پسر">
+						<option value="پسر" selected="true">پسر</option>
+						<option value="دختر" selected="true">دختر</option>
+					</select>
+		</td>
+		<td>
+					<select class="subset" id="resSubset" multiple>
+						<option value="روستا">روستایی</option>
+						<option value="شهر" selected="true">شهری</option>
+						<option value="غیرساکن">غیر ساکن</option>
+					</select>
+		</td>
+		<td>
+					<select class="subset" id="ageSubset" multiple>
+						<option value="6" selected="true">6 ساله</option>
+						<option value="7" selected="true">7 ساله</option>
+						<option value="8">8 ساله</option>
+						<option value="9">9 ساله</option>
+						<option value="10">10 ساله</option>
+						<option value="11">11 ساله</option>
+						<option value="12">12 ساله</option>
+						<option value="13">13 ساله</option>
+						<option value="14">14 ساله</option>
+						<option value="15">15 ساله</option>
+						<option value="16">16 ساله</option>
+						<option value="17">17 ساله</option>
+						<option value="18">18 ساله</option>
+						<option value="19">19 ساله</option>
+					</select>
+		</td>
+		<td>
+					<input class="button" id="subsetBtn" type="submit" value="اعمال"></input>
+					<input class="button" id="subsetReset" type="reset" value="پیش فرض" onclick="(function (e, obj) { 
+						console.log(this); console.log(getSelectValues(resSubset)); } )(event, this)"></input>
+				<!--</div>-->
+		</td>
+		<td>
+				<div class="valueGroup" dir="rtl">
+					<!--
+					<select id="valueSelector" dir="rtl" value="percent.population.not.ed" onchange="repValueChanged()">
+						<option value="population.ed">جمعیت در حال تحصیل</option>
+						<option value="population.not.ed">جمعیت خارج از تحصیل</option>
+						<option value="percent.population.ed">درصد در حال تحصیل</option>
+						<option value="percent.population.not.ed">درصد خارج از تحصیل</option>
+					</select>
+					-->
+					<!--<input onchange="subsetChanged(false)" type="radio" value="population.ed" name="valueSelector" checked="true">جمعیت در حال تحصیل<br></input>-->
+					<input onchange="subsetChanged(false)" type="radio" value="population.not.ed" name="valueSelector" checked="true" >جمعیت خارج از تحصیل<br></input>
+					<!--<input onchange="subsetChanged(false)" type="radio" value="percent.population.ed" name="valueSelector">درصد در حال تحصیل<br></input>-->
+					<input onchange="subsetChanged(false)" type="radio" value="percent.population.not.ed" name="valueSelector">درصد خارج از تحصیل<br></input>
+				</div>
+		</td>
+				<!--<div class="valueGroup" dir="rtl">
+					<input type="radio" value="1" name="locType" selected="true">استان</input>
+					<input type="radio" value="0" name="locType">شهرستان</input>
+				</div>-->
+	</tr>
+</table>
+			</form>
 		</header>
-		<div id="main">
+<table border="1" width="100%">
+	<tr height="230px">
+	<td rowspan="3" width="800px">
+		<div id="main" >
+			<input id="yearSlider" type="range" min="1390" max="1395" step="5" value="1390" oninput="yearChange(value)">1390</input>
+			<div class="locationGroup">
+				<input type="radio" value="0" name="locType" onchange="subsetChanged(true)">استان</input>
+				<input type="radio" value="1" name="locType" checked="true" onchange="subsetChanged(true)">شهرستان</input>
+			</div>
 		</div>
-		<div id="aside">
+	</td>
+	<td colspan="2" height="230px">
+		<div id="locCompare"><svg id="ostansvg" /></div>
+	</td>
+	</tr>
+	<tr height="200px">
+		<td width="200">
+			<div id="barChart1"></div>
+		</td>
+		<td>
+			<div id="barChart2"></div>
+		</td>
+	</tr>
+	<tr height="200px">
+		<td colspan="2">
+			<div id="barChart3"></div>
+		</td>
+	</tr>
+<!-- 		<div id="aside">
 			<div id="ostan"><svg id="ostansvg" /></div>
-			<div id="LineChart" />
+			<div id="barChart1"></div>
+			<div id="barChart2"></div>
 		</div>
+ -->	
 	</body>
-	<script>
-		var csvUrl = "csv/Population_timeSeries_Provinces.csv"; //"https://dl.dropboxusercontent.com/s/4ue1lprzqwsiz0y/Population_timeSeries_Provinces.csv";
-		var topoUrl = "topo/piran-.json"; // "https://dl.dropboxusercontent.com/s/ytz7j0czwfxc50c/piran-.json"; 
-		var csvUrl2 = "csv/Population.csv"; //"https://dl.dropboxusercontent.com/s/0qyo4poife93rjz/Population.csv";
-		var csvProvUrl = "csv/Provinces.csv";
-		var oosCsvUrl = "csv/out_of_school_children_1390.csv";
+	<script>	
+		//var csvUrl = "csv/Population_timeSeries_Provinces.csv"; //"https://dl.dropboxusercontent.com/s/4ue1lprzqwsiz0y/Population_timeSeries_Provinces.csv";
+		//var topoUrl = "topo/piran-.json"; // "https://dl.dropboxusercontent.com/s/ytz7j0czwfxc50c/piran-.json"; 
+		//var csvUrl2 = "csv/Population.csv"; //"https://dl.dropboxusercontent.com/s/0qyo4poife93rjz/Population.csv";
+		//var csvProvUrl = "csv/provinces.csv";
+		//var oosCsvUrl = "csv/out_of_school_children_1390.csv";
+		var ostanCsvUrl = "csv/out_of_school_children_1390_1395_provinces-2.csv";
+		var shahrestanCsvUrl = "csv/out_of_school_children_1390_1395.csv"
+		var ostanTopoUrl = "topo/piran-amarcoded-zeropadID-.json"; //"topo/iran-os-amarcoded-.json";
+		var shahrestanTopoUrl = "topo/iran-sh-amarcoded2-.json";
+		
+		var locIdFieldInCsv = "addressCode";
+		var timeFieldInCsv = "year";
+		var locNameFieldInCsv = "Code";
 		
 		var attributeArray =[ ];
 		var _csvData = [];
 		var _provData = [];
 		var _oosData = [];
 		
-		var width = 1200, height = 800;
-		var projection = d3.geo.mercator()
-			.center([51, 32])
-			.scale(2000)
-			.translate([350, height / 2]);
+		// current topology
+		var topoData = [];
 		
-		var tooltip = d3.select("body").append("div")
-			.attr("class", "hidden tooltip");
+		var curOstanStyleSaved = "";
+		
+		// current csv
+		var	csvData = [];
+		
+		// map data
+		var mapData = [];
+		
+		// WHOLE data (topo + csv) for (ostan + shahrestan)
+		var _ostanCsvData = [];
+		var _shahrestanCsvData = [];
+		var _ostanTopoData = [];
+		var _shahrestanTopoData = [];
+		
+		// 1: location resolution is Ostan; otherwise is Shahrestan
+		var isOstan = 1;
+		
+		// selected (current) Ostan ID
+		var curLocID = "2301"
+		
+		// current year
+		var curYear = 1390;
+		
+		var svg; // global variable for map svg
+
 		var tooltip2 = d3.select("body").append("div")
 			.attr("class", "hidden tooltip");
+		var tooltip = d3.select("body").append("div")
+			.attr("class", "hidden tooltip");
+
 		
-		var path = d3.geo.path()
-			.projection(projection);
+		configParameters();
 		
-		var map = d3.map();
-		
-		var quantize = d3.scale.quantize()
-			.domain([100, 4000])
-			.range(d3.range(11).map(function (i) { return "q" + i + "-11"}));		
-						
-		//var colorInterpolator = d3.interpolateRgb(#ffffff, #ff0000);				
-						
-		var svg = d3.select("#main").append('svg')
-			.attr('width', width)
-			.attr('height', height);
-		
+		// load external files (csv + topo)
 		queue()
-			.defer(d3.csv, csvProvUrl)
-			.defer(d3.csv, csvUrl2)
-			.defer(d3.json, topoUrl)
-			.defer(d3.csv, oosCsvUrl)
-			.await(ready);
-		
-		function ready(error, provData, csvData, topodata, oosData)
-		{
-			if (error) throw error;
-		  // function accepts any errors from the queue function as first argument, then
-		  // each data object in the order of chained defer() methods above
-			console.log(topodata);
-			//console.log(popData);
-/*		  var provinces = topodata.objects.piran.geometries;  // store the path in variable for ease
-		  for (var i in provinces) {    // for each geometry object
-			for (var j in csvData) {  // for each row in the CSV
-			  //console.log(popData[j]);
-			  //console.log(provinces[i]);
-			  if (provinces[i].id == csvData[j].Code) {   // if they match
-				for(var k in csvData[i]) {   // for each column in the a row within the CSV
-				  if(k != 'name' && k != 'id') {  // let's not add the name or id as props since we already have them
-					if(attributeArray.indexOf(k) == -1) { 
-					   attributeArray.push(k);  // add new column headings to our array for later
-					}
-					provinces[i].properties[k] = Number(popData[j][k])  // add each CSV column key/value to geometry object
-				  } 
-				}
-				break;  // stop looking through the CSV since we made our match
-			  }
-			}
-		  }
-  d3.select('#clock').html(attributeArray[currentAttribute]);  // populate the clock initially with the current year
-  drawMap(piran);  // 
-	*/	
-			//console.log(csvData);
-			_csvData = csvData;
-			_provData = provData;
-			_oosData = oosData;
-			var topo = topojson.feature(topodata, topodata.objects.piran);
+			.defer(d3.csv, ostanCsvUrl)
+			.defer(d3.csv, shahrestanCsvUrl)
+			.defer(d3.json, ostanTopoUrl)
+			.defer(d3.json, shahrestanTopoUrl)
+			.await(DataReady);
 			
-			svg.append("g")
-				.attr("class", "provinces")
-				.selectAll('path')
-					.data(topo.features)
-				.enter().append('path')
-				.attr('d', path)
-				.attr('class', 'province')
-				.attr('id', function(d) { return d.id })
-				.on("mousemove", function (d) {
-					var mouse = d3.mouse(svg.node()).map(function (d) {
-						return parseInt(d);
-					});
-					tooltip.classed('hidden', false)
-						.attr('style', 'left:' + (mouse[0]+15) + 'px; top:' + (mouse[1]-35) + 'px')
-						.html(this.getAttribute('pername') + "<br>" + this.getAttribute('pop'));
+		function DataReady(error, ostanCsvData, shahrestanCsvData, ostanTopoData, shahrestanTopoData) {	
+			if (error) throw error;
+
+			// setting global variables
+			_ostanCsvData = ostanCsvData;
+			_shahrestanCsvData = shahrestanCsvData;
+			_ostanTopoData = ostanTopoData;
+			_shahrestanTopoData = shahrestanTopoData;
+		
+			subsetChanged(true);
+			//filterData();
+			//drawMap(topoData);
+			//updateMap();
+		}
+		
+		// This function is called once, in order to read all csv & topo files.
+		function loadData()
+		{
+		}
+		
+		function filterData()
+		{
+			var tempData = [];
+			
+			if (isOstan == 1)
+				{
+					topoData = _ostanTopoData;
+					tempData = _ostanCsvData;
+					locNameFieldInCsv = 'Code';
+				}
+			else
+				{
+					topoData = _shahrestanTopoData;
+					tempData = _shahrestanCsvData;
+					locNameFieldInCsv = 'city';
+				}
+				
+			var sexParams = getSelectValues(sexSubset);
+			var ageParams = getSelectValues(ageSubset);
+			var resParams = getSelectValues(resSubset);
+			csvData = tempData.filter(function(d) { 
+				return sexParams.includes(d.sex) 
+					&& ageParams.includes(d.age) 
+					&& resParams.includes(d.settlement); });
+		}
+		
+		function configParameters()
+		{
+			
+			/*var csvData;
+			if (isOstan == 1)
+				csvData = _ostanCsvData;
+			else
+				csvData = _shahrestanCsvData;
+			
+			var categories = [ {name: 'settlement', values:[], name:'sex', values: [], name: 'age', values[]};
+			var catLength = categories.length;
+			for (var i=0; i < catLength; i++)
+			{
+				categories[i].values = 
+					d3.map(csvData, function(d) { return d[categories[i].name]; }).keys();
+				d3.select("header").append("")
+			}*/
+			
+		}
+		
+		
+		// This function is used to draw the map.
+		//
+		// Input: topoData     - the topoJson object used for drawing
+		//
+		function drawMap(topoData)
+		{
+			var width = 1000, height = 600;
+			var projection = d3.geo.mercator()
+				.center([51, 32])
+				.scale(2000)
+				.translate([350, height / 2 + 25])
+				.precision(0);
+			
+			d3.selectAll("body div.hidden")
+				.remove();
+						
+			var path = d3.geo.path()
+				.projection(projection);
+			
+			var pathSimplified = function(d) 
+			{
+				return path(d).replace(/(\.\d{1})\d+/g, '$1');
+			}
+			
+			var map = d3.map();
+			
+			var quantize = d3.scale.quantize()
+				.domain([100, 4000])
+				.range(d3.range(11).map(function (i) { return "q" + i + "-11"}));		
+							
+			//var colorInterpolator = d3.interpolateRgb(#ffffff, #ff0000);				
+			
+			d3.selectAll("#main svg")
+				.attr('class', 'hidden');
+				
+			ssvg = d3.select("#main #locType" + isOstan);
+					
+			// do not redraw if already drawn. just hide/show.
+			if (!ssvg.empty())
+			{
+				ssvg.attr("class", "nothidden");
+				return;
+			}
+					
+			 svg = d3.select("#main").append('svg')
+				.attr('width', width)
+				.attr('height', height)
+				.attr('id', 'loctype' + isOstan)
+				.attr('class', 'nothidden');
+			/*queue()
+				.defer(d3.csv, csvProvUrl)
+				.defer(d3.csv, csvUrl2)
+				.defer(d3.json, topoUrl)
+				.defer(d3.csv, oosCsvUrl)
+				.await(DataReady);
+			
+			function DataReady(error, provData, csvData, topodata, oosData)
+			{
+				if (error) throw error;
+
+				// setting global variables
+				_csvData = csvData;
+				_provData = provData;
+				_oosData = oosData;
+			*/
+
+				//
+				var topo = topojson.feature(topoData, topoData.objects["iran-amarcoded"]);
+				
+				svg.append("g")
+					.attr("class", "provinces")
+					.selectAll('path')
+						.data(topo.features)
+					.enter().append('path')
+					.attr('d', pathSimplified)
+					.attr('class', 'province')
+					.attr('locid', function(d) { return d.id; })
+					.on("mousemove", function (d) {
+						var mouse = d3.mouse(svg.node()).map(function (d) {
+							return parseInt(d);
+						});
+						tooltip.classed('hidden', false)
+							.attr('style', 'left:' + (mouse[0]+15) + 'px; top:' + (mouse[1]-35) + 'px')
+							.html(this.getAttribute('pername') + "<br>" + this.getAttribute('pop') + "<br>" + this.getAttribute('locid'));
+						})
+					.on("mouseout", function() {
+						tooltip.classed('hidden', true)
 					})
-				.on("mouseout", function() {
-					tooltip.classed('hidden', true)
-				})
-				.on("click", function(d) { 
-					//drawOstan(d); 
-					drawBarChart(d); 
-					drawBarChart2(d);
-				});
-			drawlegend(quantize);
-			yearChange(1385);
+					.on("click", function(d) { 
+						//drawOstan(d); 
+						//drawBarCharts(d.id);
+						selectLocation(d.id);
+					});
+					
+				var provOosData = d3.nest()
+					.key(function (d) { return d.province; })
+					.rollup(function(d) {
+						return d3.sum(d, function(h) { return h["population.total"] }); 
+					}).entries(_oosData);
+					
+				provOosData.forEach(function (d) {
+					d.city = d.key;
+					d.pop = d.values;
+				});			
+				
+				/*avg.selectAll('path')
+					.data(provOosData)
+					.update()
+					.attr('style', function (d)
+						{
+						
+							return "rgb(255, "
+						}
+					)
+
+					provData = _csvData.find(function(x) { return x.Code == d.id});
+					colr = 255;
+					colg = Math.round(255 - provData[value] / 3000 * 255);
+					colb = Math.round(255 - provData[value] / 3000 * 255);
+				*/
+				//drawlegend(quantize);
+				yearChange(curYear);
+			/*}*/
+			
+			function drawlegend(quantize)
+			{
+				var color_domain = [50, 150, 350, 750, 1500]
+				var ext_color_domain = [100, 100+354, 100 + 2*354, 100 + 3*354, 100 + 4*354, 
+					100+5*354, 100 + 6*354, 100 + 7*354, 100 + 8*354, 100+9*354, 100 + 10*354]
+				
+				var legend_labels = ["<= 100", "450+", "800+", "1150+", "1500+", "1850+", "2200+", "2550+", "2900+", "3250+", "> 3250"] 
+				var legend = svg.selectAll("g.legend")
+					.data(ext_color_domain)
+					.enter().append("g")
+					.attr('class', 'legend');
+				
+				var ls_w = 20, ls_h = 20;
+				
+				legend.append("rect")
+					.attr("x", 20)
+					.attr("y", function(d, i) { return height - 100 - (i*ls_h) - 2 *ls_h; })
+					.attr("width", ls_w)
+					.attr("height", ls_h)
+					.attr("class", function (d, i) { return quantize.range()[i]; })
+					
+				legend.append("text")
+					.attr("x", 50)
+					.attr("y", function(d, i) { return height - 100- (i*ls_h) - 2*ls_h;})
+					.text(function(d, i) { return legend_labels[i]; });
+					
+			}
+
+		}
+		
+		function activateCurOstan(locID) {
+			//curlocID = locID;
+			console.log(locID);
+			oldOstans = d3.select(".nothidden path.selected");
+			if (!oldOstans.empty())
+			{
+				/*oldOstansStyle = oldOstans.attr('style');
+				oldOstans
+					.attr('style', oldOstansStyle.substr(0, oldOstansStyle.indexOf('stroke')))
+					.attr('class', 'province');*/
+				oldOstans
+					.attr('class', 'province')
+					.style('stroke', null)
+					.style('stroke-width', null);
+			}
+			curOstan = d3.select(".nothidden [locid='"+locID+"']");
+			curOstanStyle = curOstan.attr('style');
+			curOstan
+				.attr('class', 'selected')
+				/*.attr('style', curOstanStyle.replace('fill', 'fill') + ';background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAIUlEQVQIW2NkYGD4D8SMQAwD/2EcmASYRlEB04FTJYaZAMxBCQQo0O1/AAAAAElFTkSuQmCC) repeat;')
+				*/
+				//.attr('style', curOstanStyle + ';stroke: green; stroke-width: 3px');
+				.style('stroke', 'green')
+				.style('stroke-width', '3px');
 		}
 		
 		function drawOstan(d)
@@ -272,13 +616,16 @@
 				.datum(lineData)
 				.attr("class", "line")
 				.attr("d", line);
-		}
+		}		
 		
-		function drawBarChart(d)
-		{
+		function drawBarChartField(locID, fieldname, elementID)
+		{		
+			var el = d3.select("#"+ elementID);
+			if (el.empty())
+				return;
 			var margin = {top: 10, right: 50, bottom: 30, left: 50},
-				width = 400 - margin.left - margin.right,
-				height = 400 - margin.top - margin.bottom;
+				width = 300 - margin.left - margin.right,
+				height = 200 - margin.top - margin.bottom;
 
 			var x = d3.scale.ordinal()
 				.rangeRoundBands([0, width], .1);
@@ -290,12 +637,17 @@
 				.scale(x)
 				.orient("bottom");
 
+			var selectedValue = getRadioVal("valueSelector");
+			var aggregateField = selectedValue.replace("percent.", "");
+
+			ticksymbol = selectedValue.startsWith("percent") ? "%" : "";
+			
 			var yAxis = d3.svg.axis()
 				.scale(y)
 				.orient("left")
-				.ticks(10, "%");
+				.ticks(10, ticksymbol);
 
-			var svg = d3.select("#LineChart")
+			var svg = d3.select("#" + elementID)
 				.attr("width", width + margin.left + margin.right)
 				.attr("height", height + margin.top + margin.bottom);
 				
@@ -308,21 +660,171 @@
 			.append("g")
 				.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 			  			  
-			  var oosData = d3.nest()
-				.key(function (d) { return d.age; })
+ 			var oosData = d3.nest()
+				.key(function (d) { return d[fieldname]; })
 				.rollup(function(d) {
-					return d3.sum(d, function(h) { return h["population.not.ed"]; }) / d3.sum(d, function (g) { return g["population.total"]; }); 
-				}).entries(
-					_oosData.filter(function (p) { return p.Code == d.id; } )
-					);
-				
+					if (selectedValue.startsWith("percent"))
+					// case 1: calculate percent
+						return d3.sum(d, function(h) { return h[aggregateField]; }) 
+							/ d3.sum(d, function (g) { return g["population.total"]; })
+					else
+					// case 2:
+						return d3.sum(d, function(h) { return h[aggregateField]; });
+				}).entries(    // filter by current locID
+					csvData.filter(function (p) { return p[locIdFieldInCsv] == locID; } )
+					);				
 			oosData.forEach(function (d) {
-				d.age = d.key;
+				d.field = d.key;
 				d.pop = d.values;
 			});
 			  
-			  x.domain(oosData.map(function(d) { return d.age; }));
-			  y.domain([0, 2*d3.max(oosData, function(d) { return d.pop; })]);
+			  x.domain(oosData.map(function(d) { return d.field; }));
+			  //y.domain([0, d3.max(oosData, function(d) { return d.pop; })]);
+ 			var aggData = d3.nest()
+				.key(function (d) { return d[locIdFieldInCsv]; })
+				//.key(function (d) { return d[fieldname];})
+				.rollup(function(d) {
+					if (selectedValue.startsWith("percent"))
+					// case 1: calculate percent
+						return d3.sum(d, function(h) { return h[aggregateField]; }) 
+							/ d3.sum(d, function (g) { return g["population.total"]; })
+					else
+					// case 2:
+						return d3.sum(d, function(h) { return h[aggregateField]; });
+				}).entries(    // filter by current locID
+					csvData);								
+			
+				y.domain([0, 1.1* d3.max(aggData, function(d) { return d.values; })]);
+			  
+			  svg.append("g")
+				  .attr("class", "x axis")
+				  .attr("transform", "translate(0," + height + ")")
+				  .call(xAxis)
+				.append("text")
+				  .attr("x", width)
+				  .attr("dy", ".71em")
+				  .style("text-anchor", "start")
+				  .text(fieldname);
+
+			  svg.append("g")
+				  .attr("class", "y axis")
+				  .call(yAxis)
+				.append("text")
+				  .attr("transform", "rotate(-90)")
+				  .attr("y", 6)
+				  .attr("dy", ".71em")
+				  .style("text-anchor", "end")
+				  .text("data");
+
+			  var bar = svg.selectAll(".bar")
+				  .data(oosData);
+				
+				bar.enter().append("rect")
+				  .attr("class", "bar")
+				  .attr("x", function(d) { return x(d.field); })
+				  .attr("width", x.rangeBand())
+				  .attr("y", height) //function(d) { return y(d.pop); })
+				  .attr("height", 0)//function(d) { return height - y(d.pop); })
+				  .attr("pop", function(d) { return d.pop;} )
+				  .attr(fieldname, function(d) { return d.fieldname; })
+				  .on("mousemove", function (d) {
+						/*var mouse = d3.mouse(this).map(function (d) {
+							return parseInt(d);
+						});*/
+						tooltip2.classed('hidden', false)
+							.attr('style', 'left:' + (d3.event.pageX+15) + 'px; top:' + (d3.event.pageY-35) + 'px')
+							.html(this.getAttribute(fieldname) + "<br>" + this.getAttribute('pop'));
+						})
+					.on("mouseout", function() {
+						tooltip2.classed('hidden', true)
+				});
+				
+				bar.transition()
+					.duration(750)
+					.attr("y", function(d) { return y(d.pop); })
+					.attr("height", function (d) {return height - y(d.pop); })
+					
+			function type(d) {
+			  d.pop = +d.pop;
+			  return d;
+			}
+
+		}
+		
+		function drawBarChart3(elementID, fieldname, locID)
+		{
+			var margin = {top: 10, right: 50, bottom: 30, left: 50},
+				width = 400 - margin.left - margin.right,
+				height = 400 - margin.top - margin.bottom;
+
+			var xfield = d3.scale.ordinal()
+				.rangeRoundBands([0, width], .1);
+
+			var xtime = d3.scale.ordinal();
+
+			var y = d3.scale.linear()
+				.range([height, 0]);
+
+			var color = d3.scale.ordinal()
+				.range(["#98abc5", "#8a89a6", "#7b6888", "#6b486b", "#a05d56", "#d0743c", "#ff8c00"]);
+			
+			var xAxis = d3.svg.axis()
+				.scale(xfield)
+				.orient("bottom");
+
+			var yAxis = d3.svg.axis()
+				.scale(y)
+				.orient("left")
+				.ticks(10, "%");
+
+			var elem = d3.select("#"+elementID)
+				.attr("width", width + margin.left + margin.right)
+				.attr("height", height + margin.top + margin.bottom);
+				
+			elem.selectAll("svg")
+				.remove();
+			
+			svg = elem.append("svg")
+				.attr("width", width + margin.left + margin.right)
+				.attr("height", height + margin.top + margin.bottom)
+			.append("g")
+				.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+			  			  
+
+			var selectedValue = getRadioVal("valueSelector");
+			var aggregateField = selectedValue.replace("percent.", "");
+			
+			// group data by "time" & "fieldname"
+		
+			var oosData = d3.nest()
+				.key(function (d) { return d[fieldname]; }) // group by "fieldname"
+				.key(function(d) { return d[timeFieldInCsv]; }) // group by year
+				.rollup(function(d) {
+					if (selectedValue.startsWith("percent"))
+					// case 1: calculate percent
+						return d3.sum(d, function(h) { return h[aggregateField]; }) 
+							/ d3.sum(d, function (g) { return g["population.total"]; })
+					else
+					// case 2:
+						return d3.sum(d, function(h) { return h[aggregateField]; });
+				}).entries(    // filter by current locID
+					csvData.filter(function (p) { return p[locIdFieldInCsv] == locID; } )
+					);
+				
+			oosData.forEach(function (d) {
+				d.field = d.key;
+				d.pop = d.values;
+			});
+			  
+			//var timeNames = oosData.map( function(d) { return d.)
+			  
+			  xfield.domain(oosData.map(function(d) { return d.field; }));
+			  y.domain(
+				[d3.min(oosData, function(d) { return d3.min(d.pop, function (z) { return z.values; }) }),
+				 d3.max(oosData, function(d) { return d3.max(d.pop, function (z) { return z.values; }) })]);
+			xtime.domain(oosData.map(function(d) { return d.pop; }));
+				
+				//d3.extent(oosData, function(d) { return d.pop; }));
 
 			  svg.append("g")
 				  .attr("class", "x axis")
@@ -344,16 +846,24 @@
 				  .style("text-anchor", "end")
 				  .text("percent oos");
 
-			  svg.selectAll(".bar")
-				  .data(oosData)
-				.enter().append("rect")
+				
+				var fieldgroup = svg.selectAll('.'+fieldname + "group")
+					.data(oosData)
+				  .enter().append("g")
+					.attr('class', fieldname + "group")
+					.attr('transform', function(d) { return 'translate(' + xfield(d.field) + ',0)'; })
+				
+			  var bar = fieldgroup.selectAll(".bar")
+				  .data(function(d) { return d.pop; });
+				  
+				bar.enter().append("rect")
 				  .attr("class", "bar")
-				  .attr("x", function(d) { return x(d.age); })
-				  .attr("width", x.rangeBand())
-				  .attr("y", function(d) { return y(d.pop); })
-				  .attr("height", function(d) { return height - y(d.pop); })
+				  .attr("x", function(d) { return xtime(d.field); })
+				  .attr("width", xtime.rangeBand())
+				  .attr("y", height) //function(d) { return y(d.pop); })
+				  .attr("height", 0)//function(d) { return height - y(d.pop); })
 				  .attr("pop", function(d) { return d.pop;} )
-				  .attr("age", function(d) { return d.age; })
+				  .attr("field", function(d) { return d.field; })
 				  .on("mousemove", function (d) {
 						/*var mouse = d3.mouse(this).map(function (d) {
 							return parseInt(d);
@@ -364,7 +874,12 @@
 						})
 					.on("mouseout", function() {
 						tooltip2.classed('hidden', true)
-				});
+					});
+				
+				bar.transition()
+					.duration(750)
+					.attr("y", function(d) { return y(d.pop); })
+					.attr("height", function (d) {return height - y(d.pop); })
 					
 			function type(d) {
 			  d.pop = +d.pop;
@@ -373,17 +888,40 @@
 
 		}
 
-		function drawBarChart2(d)
-		{
-			var margin = {top: 10, right: 50, bottom: 30, left: 50},
-				width = 400 - margin.left - margin.right,
-				height = 400 - margin.top - margin.bottom;
+		function drawBarChartLocComparison(locID)
+		{			
+			var filteredData = [];
+			var locType = 0;
+			var motherId = "";
+			if (locID.length > 2) // shahrestan - show all shahrestans in the same ostan 
+			{
+				motherId = locID.substr(0, 2);
+				filteredData = csvData.filter(function (p) { return p[locIdFieldInCsv].substr(0, 2) == motherId; });
+				locType = 1;
+			}
+			else  // ostan - show all ostans' aggregated data
+			{
+				motherId = 'iran';
+				filteredData = csvData;
+				locType = 0;
+			}			
 
-			var y = d3.scale.ordinal()
-				.rangeRoundBands([height, 0], .1);
+			/*provData = _csvData.find(function(x) { return x.Code == d.id});
+				colr = 255;
+				colg = Math.round(255 - provData[value] / 3000 * 255);
+				colb = Math.round(255 - provData[value] / 3000 * 255);
+				stylecol = "fill: rgb(" + colr + ',' + colg + ',' + colb + ')'; 
+				*/
+				stylecol = "fill: rgb(0, 0, 255)";
+			var margin = {top: 10, right: 50, bottom: 50, left: 50},
+				width = 600 - margin.left - margin.right,
+				height = 230 - margin.top - margin.bottom;
 
-			var x = d3.scale.linear()
-				.range([0, width]);
+			var x = d3.scale.ordinal()
+				.rangeRoundBands([0, width], .1);
+
+			var y = d3.scale.linear()
+				.range([height, 0]);
 
 			var yAxis = d3.svg.axis()
 				.scale(y)
@@ -394,36 +932,68 @@
 				.orient("bottom")
 				.ticks(10, "%");
 			
-			var svg = d3.select("#ostansvg")
-				.attr("width", width + margin.left + margin.right)
-				.attr("height", height + margin.top + margin.bottom);
-				
-			svg.selectAll("g")
-				.remove();
+			var svg = d3.select("#ostansvg");
 			
-			svg = svg.append("g")
+			if (svg.attr('locid') != motherId)
+			{
+				// change in data. remove old elements.
+					svg.selectAll("g")
+						.remove();
+			}
+			svg
+				.attr("width", width + margin.left + margin.right)
+				.attr("height", height + margin.top + margin.bottom)
+				.attr('locid', motherId)
+				
+			
+			svg = svg.data([1]).append("g")
 				.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 			  			  
+			var selectedValue = getRadioVal("valueSelector");
+			var aggregateField = selectedValue.replace("percent.", "");
+						
 			  var oosData = d3.nest()
-				.key(function (d) { return d.city; })
+				.key(function (d) { return locType == 1 ? d[locIdFieldInCsv].substr(2, 2): d[locIdFieldInCsv]; })
 				.rollup(function(d) {
-					return d3.sum(d, function(h) { return h["population.not.ed"] }) / d3.sum(d, function (g) { return g["population.total"]; }); 
+					if (selectedValue.startsWith("percent"))
+					// case 1: calculate percent
+						return d3.sum(d, function(h) { return h[aggregateField]; }) 
+							/ d3.sum(d, function (g) { return g["population.total"]; })
+						
+					else
+					// case 2:
+						return d3.sum(d, function(h) { return h[aggregateField]; });
 				}).entries(
-					_oosData.filter(function (p) { return p.Code == d.id; } )
+					filteredData //csvData.filter(function (p) { return p.Code == d.id; } )
 					);
 				
 			oosData.forEach(function (d) {
-				d.city = d.key;
+				d.loc = d.key;
+				if (locType == 0)
+				{	
+					d.name = filteredData.find(function(u) { return u[locIdFieldInCsv] == d.key })[locNameFieldInCsv];
+				}
+				else
+				{
+					d.name = filteredData.find(function(u) { return u[locIdFieldInCsv].substr(2, 2) == d.key})[locNameFieldInCsv];
+				}
 				d.pop = d.values;
 			});
+			
+			oosData.sort(function (a, b) { return b.pop - a.pop; });
 			  
-			  y.domain(oosData.map(function(d) { return d.city; }));
-			  x.domain([0, 2*d3.max(oosData, function(d) { return d.pop; })]);
+			  x.domain(oosData.map(function(d) { return d.name; }));
+			  y.domain([0, 1.5*d3.max(oosData, function(d) { return d.pop; })]);
 
 			  svg.append("g")
 				  .attr("class", "x axis")
-				  .attr("transform", "translate(0," + height + ")")
-				  .call(xAxis);
+				  .attr("transform", "translate(0, " + height + ")")
+				  .call(xAxis)
+				.selectAll("text")
+					.attr("transform", "rotate(90)")
+					.style("text-anchor", "start")
+					.attr("dy", ".35em")
+
 
 			  svg.append("g")
 				  .attr("class", "y axis")
@@ -436,38 +1006,86 @@
 				  .style("text-anchor", "end")
 				  .text("Population");
 
-			  svg.selectAll(".bar")
-				  .data(oosData)
-				.enter().append("rect")
+			  var bars = svg.selectAll(".bar")
+				  .data(oosData);
+				
+				bars.enter().append("rect")
 				  .attr("class", "bar")
-				  .attr("x", 0)//function(d) { return x(d.city); })
-				  .attr("height", y.rangeBand())
-				  .attr("y", function(d) {return y(d.city); })
-				  .attr("width", function(d) { return x(d.pop); })
+				  .attr("x", function(d) { return x(d.name); })
+				  .attr("height", 0)//y.rangeBand())
+				  .attr("y", height)//function(d) {return y(d.name); })
+				  .attr("width", x.rangeBand()) //0) //function(d) { return x(d.pop); })
 				  .attr("pop", function(d) { return d.pop;} )
-				  .attr("city", function(d) { return d.city; })
+				  .attr("loc", function(d) { return d.loc; })
+				  .attr("locname", function(d) { return d.name;})
+				.attr('style', function(d) {
+						return locType == 0 ?
+							d3.select("[locid='"+ d.loc +"']").attr("style") 
+							:  d3.select("[locid='"+ motherId + d.loc +"']").attr("style");
+						})
 				  .on("mousemove", function (d) {
 						/*var mouse = d3.mouse(this).map(function (d) {
 							return parseInt(d);
 						});*/
 						tooltip2.classed('hidden', false)
 							.attr('style', 'left:' + (d3.event.pageX+15) + 'px; top:' + (d3.event.pageY-35) + 'px')
-							.html(this.getAttribute('city') + "<br>" + this.getAttribute('pop'));
+							.html(this.getAttribute('locname') + "<br>" + this.getAttribute('pop'));
 						})
 					.on("mouseout", function() {
 						tooltip2.classed('hidden', true)
 				});
-
+				
+				/*svg.selectAll('.bar')
+					.sort(function(a, b) { return a.pop - b.pop;})
+					.transition()
+					.delay(function (d, i) { return i*50;})
+					.duration(1000)
+					.attr("y", function(d, i) { return y(d.pop);} );
+					*/
+				bars.transition()
+					.duration(750)
+					.attr("y", function(d) { return height - y(d.pop); })
+					.attr("height", function(d) { return y(d.pop); })
+					//.attr("width", function(d) {return x(d.pop);  })	
+					
 			function type(d) {
 			  d.pop = +d.pop;
 			  return d;
 			}
 
 		}
-
 		
 		function yearChange(value)
 		{
+			var selectedValue = getRadioVal("valueSelector");
+			var aggregateField = selectedValue.replace("percent.", "");
+			
+			// group data by location ID
+		
+			var oosData = d3.nest()
+				.key(function (d) { return d[locIdFieldInCsv]; })
+				.rollup(function(d) {
+					if (selectedValue.startsWith("percent"))
+					// case 1:
+						return d3.sum(d, function(h) { 
+							return h[aggregateField]; }) / d3.sum(d, function (g) { return g["population.total"]; })
+					else
+					// case 2:
+						return d3.sum(d, function(h) {
+							return h[aggregateField]; });
+				}).entries(
+					csvData.filter(function (p) { return p[timeFieldInCsv] == value; } )
+					);
+				
+			oosData.forEach(function (d) {
+				d.id = d.key;
+				d.pop = d.values;
+			});
+			
+			var x = d3.scale.linear()
+				.rangeRound([255, 0])
+				.domain([0, d3.max(oosData, function(d) { return d.pop; })]);
+	
 			//$yearSlider.text = value;
 			d3.selectAll("path")
 				//.data(_csvData, function(d) { console.log(d.Code); return d.Code})
@@ -475,52 +1093,90 @@
 					provData = _csvData.find(function(x) { return x.Code == d.id})
 					return quantize(provData[value]); 
 				})*/
-				.attr("style", function(d) {
-					provData = _csvData.find(function(x) { return x.Code == d.id});
+		
+		.attr("style", function(d) {
+					provData = oosData.find(function(x) { return x.id == d.id});
+					if (provData)
+					{
 					colr = 255;
-					colg = Math.round(255 - provData[value] / 3000 * 255);
-					colb = Math.round(255 - provData[value] / 3000 * 255);
+					colg = x(provData.pop); //Math.round(255 - provData.pop / 3000 * 255);
+					colb = x(provData.pop); //Math.round(255 - provData[value] / 3000 * 255);
 					return "fill: rgb(" + colr + ',' + colg + ',' + colb + ')'; 
+					}
+					else
+						return "";
 				})
 				.attr("pername", function(d) {
-					provData = _csvData.find(function(x) { return x.Code == d.id});
-					return provData['pername'];					
+					provData = csvData.find(function(x) { return x[locIdFieldInCsv] == d.id});
+					if (provData && provData[locNameFieldInCsv])
+						return provData[locNameFieldInCsv];
+					else
+						return "N/A";
 				})
 				.attr("pop", function(d) {
-					provData = _csvData.find(function(x) { return x.Code == d.id});
-					return provData[value];					
+					provData = oosData.find(function(x) { return x.id == d.id});
+					if (provData && provData["pop"])
+						return Math.round(provData.pop * 100) / 100;
+					else
+						return "N/A";
 				});
-		}
-		
-		function createColors()
-		{
-			
-		}
-		
-		function drawlegend(quantize)
-		{
-			var color_domain = [50, 150, 350, 750, 1500]
-			var ext_color_domain = [100, 100+354, 100 + 2*354, 100 + 3*354, 100 + 4*354, 
-				100+5*354, 100 + 6*354, 100 + 7*354, 100 + 8*354, 100+9*354, 100 + 10*354]
-			var legend_labels = ["<= 100", "450+", "800+", "1150+", "1500+", "1850+", "2200+", "2550+", "2900+", "3250+", "> 3250"] 
-			var legend = svg.selectAll("g.legend")
-				.data(ext_color_domain)
-				.enter().append("g")
-				.attr('class', 'legend');
-			
-			var ls_w = 20, ls_h = 20;
-			
-			legend.append("rect")
-				.attr("x", 20)
-				.attr("y", function(d, i) { return height - 100 - (i*ls_h) - 2 *ls_h; })
-				.attr("width", ls_w)
-				.attr("height", ls_h)
-				.attr("class", function (d, i) { return quantize.range()[i]; })
 				
-			legend.append("text")
-				.attr("x", 50)
-				.attr("y", function(d, i) { return height - 100- (i*ls_h) - 2*ls_h;})
-				.text(function(d, i) { return legend_labels[i]; });
+			return;
+			// draw legend
+				var color_domain = [50, 150, 350, 750, 1500]
+				var ext_color_domain = [100, 100+354, 100 + 2*354, 100 + 3*354, 100 + 4*354, 
+					100+5*354, 100 + 6*354, 100 + 7*354, 100 + 8*354, 100+9*354, 100 + 10*354]
+				
+				var legend_labels = ["<= 100", "450+", "800+", "1150+", "1500+", "1850+", "2200+", "2550+", "2900+", "3250+", "> 3250"] 
+				
+				var height = 800;
+				var numTicks = 10;
+				var domain = x.ticks(numTicks);
+				
+				col = d3.scale.ordinal()
+					.domain(domain)
+					.range([0, domain.length*20]);
+				
+				var legend = svg.selectAll("g.legend")
+					.data(domain)
+					.enter().append("g")
+					.attr('class', 'legend');
+				
+				var ls_w = 20, ls_h = 20;
+				
+				legend.append("rect")
+					.attr("x", 20)
+					.attr("y", function(d, i) { return height - 250 - (i*ls_h) - ls_h; })
+					.attr("width", ls_w)
+					.attr("height", ls_h)
+					.style('fill', function(d) {
+						return 'rgb(255, ' + x(d) + ',' + x(d) + ')'; });
+					
+				legend.append("text")
+					.attr("x", 50)
+					.attr("y", function(d, i) { return height - 250 - (i*ls_h) - 2 * ls_h;})
+					.text(function(d, i) { return ((i == 0) || (i == Math.round(domain.length / 2)) || (i == domain.length)) ? domain[i] : ""; });
+
+		}		
+		
+		function drawBarCharts(locID)
+		{
+			activateCurOstan(locID);
+			drawBarChartField(locID, "sex", "barChart1");
+			drawBarChartField(locID, "settlement", "barChart2");
+			drawBarChartField(locID, "age", "barChart3");						
+			drawBarChartLocComparison(locID);
+		}
+		
+		function selectLocation(newLocID)
+		{
+			//selectOnMap(newLocID);
+			if (curLocID != newLocID)
+			{
+				activateCurOstan(newLocID);
+				drawBarCharts(newLocID);
+				curLocID = newLocID;
+			}
 		}
 	</script>
 </html>
