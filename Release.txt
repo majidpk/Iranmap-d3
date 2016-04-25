@@ -1,0 +1,4 @@
+ver: 0.9
+Date: 950127
+Changes:
+	* Changing subset defaults to 6-17 years/both genders/all settlements

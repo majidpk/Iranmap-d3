@@ -1,0 +1,79 @@
+<html>
+	<meta charset="UTF-8">
+	<head>
+		<link rel="stylesheet" type="text/css" href="css/snippets.css">
+	</head>
+	<body>
+		<script>
+			// Return an array of the selected opion values
+			// select is an HTML select element
+			function getSelectValues(select) {
+			  var result = [];
+			  var options = select && select.options;
+			  var opt;
+
+			  for (var i=0, iLen=options.length; i<iLen; i++) {
+				opt = options[i];
+
+				if (opt.selected) {
+				  result.push(opt.value || opt.text);
+				}
+			  }
+			  return result;
+			}
+			
+			function subsetChanged() {
+				console.log(getSelectValues(sexSubset));
+				console.log(getSelectValues(ageSubset));
+				console.log(getSelectValues(resSubset));				
+			}
+			
+			function repValueChanged() {
+				console.log(valueSelector.value);
+			}
+			
+			function applySubset()
+			{
+				alert("applying subset");
+			}
+		</script>
+		<header>
+			<form action="javascript:applySubset();">
+			<div class="subsetGroup" dir="rtl">
+				<select class="subset" id="sexSubset" name="جنسیت" text="جنسیت" multiple value="پسر">
+					<option value="پسر" selected="true">پسر</option>
+					<option value="دختر" selected="true">دختر</option>
+				</select>
+				<select class="subset" id="resSubset" multiple>
+					<option value="روستایی">روستایی</option>
+					<option value="شهری" selected="true">شهری</option>
+					<option value="غیر ساکن">غیر ساکن</option>
+				</select>
+				<select class="subset" id="ageSubset" multiple>
+					<option value="6" selected="true">6 ساله</option>
+					<option value="7" selected="true">7 ساله</option>
+					<option value="8">8 ساله</option>
+					<option value="9">9 ساله</option>
+					<option value="10">10 ساله</option>
+					<option value="11">11 ساله</option>
+					<option value="12">12 ساله</option>
+					<option value="13">13 ساله</option>
+					<option value="14">14 ساله</option>
+					<option value="15">15 ساله</option>
+				</select>
+				<input class="button" id="subsetBtn" type="submit" value="اعمال" onclick="subsetChanged()"></input>
+				<input class="button" id="subsetReset" type="button" value="پیش فرض" onclick="(function (e, obj) { 
+					console.log(this); console.log(getSelectValues(resSubset)); } )(event, this)"></input>
+			</div>
+			<div class="valueGroup" dir="rtl">
+				<select id="valueSelector" dir="rtl" value="percent.population.not.ed" onchange="repValueChanged()">
+					<option value="population.ed">جمعیت در حال تحصیل</option>
+					<option value="population.not.ed">جمعیت خارج از تحصیل</option>
+					<option value="percent.population.ed">درصد در حال تحصیل</option>
+					<option value="percent.population.not.ed">درصد خارج از تحصیل</option>
+				</select>
+			</div>
+			</form>
+		</header>
+	</body>
+</html>

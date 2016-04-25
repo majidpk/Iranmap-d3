@@ -1,0 +1,26 @@
+<html>	
+	<meta charset="UTF-8">
+	   <script src="js/d3.v3.min.js" src1='http://d3js.org/d3.v3.min.js' charset="utf-8" type='text/javascript'></script>
+    <script src="js/topojson.v1.min.js" src1='http://d3js.org/topojson.v1.min.js' type='text/javascript'></script>
+    <script src="js/datamaps.all.min.js" src1='http://datamaps.github.io/scripts/datamaps.all.min.js' type='text/javascript'></script>
+    <script src="js/handlebars.min.js" src1='http://cdnjs.cloudflare.com/ajax/libs/handlebars.js/1.0.0/handlebars.min.js' type='text/javascript'></script>
+	<script src="js/queue.v1.min.js" src1="http://d3js.org/queue.v1.min.js"></script>
+	<head>
+		<link rel="stylesheet" type="text/css" href="css/snippets.css">
+	</head>
+	<body>
+		<script>
+			d = ['1', '2', '3']
+			function update()
+			{
+				var svg = d3.select('body').select('svg');
+			
+				svg.selectAll('g').data(d).enter().append('g').text(function(d) { return d;});
+			}
+		</script>
+		<header>
+			<input class="button" id="subsetBtn" type="button" value="اعمال" onclick="update()"></input>
+		</header>
+		<svg></svg>
+	</body>
+</html>

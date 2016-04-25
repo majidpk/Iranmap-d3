@@ -100,7 +100,7 @@ input.button {
   font: 10px sans-serif;
 }
 
-.axis path,
+.x path,
 .axis line {
   fill: none;
   stroke: #000;
@@ -286,4 +286,19 @@ p {
 .legend
 {
 	position: absolute;
+}
+
+.tick
+{
+	
+}
+
+.barTitle
+{
+	position: absolute;
+	right: 30px;
+	top: 30px;
+	font-family: weblogmayekan;
+	font-size: 14;
+	font-style: Bold;
 }

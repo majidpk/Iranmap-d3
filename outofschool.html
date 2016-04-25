@@ -72,27 +72,27 @@
 		</td>
 		<td>
 					<select class="subset" id="resSubset" multiple>
-						<option value="روستا">روستایی</option>
+						<option value="روستا" selected="true">روستایی</option>
 						<option value="شهر" selected="true">شهری</option>
-						<option value="غیرساکن">غیر ساکن</option>
+						<option value="غیرساکن" selected="true">غیر ساکن</option>
 					</select>
 		</td>
 		<td>
 					<select class="subset" id="ageSubset" multiple>
 						<option value="6" selected="true">6 ساله</option>
 						<option value="7" selected="true">7 ساله</option>
-						<option value="8">8 ساله</option>
-						<option value="9">9 ساله</option>
-						<option value="10">10 ساله</option>
-						<option value="11">11 ساله</option>
-						<option value="12">12 ساله</option>
-						<option value="13">13 ساله</option>
-						<option value="14">14 ساله</option>
-						<option value="15">15 ساله</option>
-						<option value="16">16 ساله</option>
-						<option value="17">17 ساله</option>
-						<option value="18">18 ساله</option>
-						<option value="19">19 ساله</option>
+						<option value="8" selected="true">8 ساله</option>
+						<option value="9" selected="true">9 ساله</option>
+						<option value="10" selected="true">10 ساله</option>
+						<option value="11" selected="true">11 ساله</option>
+						<option value="12" selected="true">12 ساله</option>
+						<option value="13" selected="true">13 ساله</option>
+						<option value="14" selected="true">14 ساله</option>
+						<option value="15" selected="true">15 ساله</option>
+						<option value="16" selected="true">16 ساله</option>
+						<option value="17" selected="true">17 ساله</option>
+						<option value="18" selected="true">18 ساله</option>
+						<option value="19" selected="true">19 ساله</option>
 					</select>
 		</td>
 		<td>
@@ -128,7 +128,7 @@
 <table border="1" width="100%">
 	<tr height="230px">
 	<td rowspan="3" width="800px">
-		<div id="main" >
+		<div id="main">
 			<input id="yearSlider" type="range" min="1390" max="1395" step="5" value="1390" oninput="yearChange(value)">1390</input>
 			<div class="locationGroup">
 				<input type="radio" value="0" name="locType" onchange="subsetChanged(true)">استان</input>
@@ -160,7 +160,6 @@
 		</div>
  -->	
 	</body>
-
 	<script>	
 		//var csvUrl = "csv/Population_timeSeries_Provinces.csv"; //"https://dl.dropboxusercontent.com/s/4ue1lprzqwsiz0y/Population_timeSeries_Provinces.csv";
 		//var topoUrl = "topo/piran-.json"; // "https://dl.dropboxusercontent.com/s/ytz7j0czwfxc50c/piran-.json"; 
@@ -170,17 +169,11 @@
 		var ostanCsvUrl = "csv/out_of_school_children_1390_1395_provinces-2.csv";
 		var shahrestanCsvUrl = "csv/out_of_school_children_1390_1395.csv"
 		var ostanTopoUrl = "topo/piran-amarcoded-zeropadID-.json"; //"topo/iran-os-amarcoded-.json";
-		var shahrestanTopoUrl = "topo/iran-sh-amarcoded2-.json";
+		var shahrestanTopoUrl = "topo/iran-sh-90-.json";
 		
 		var locIdFieldInCsv = "addressCode";
 		var timeFieldInCsv = "year";
 		var locNameFieldInCsv = "Code";
-
-		var csvUrl = "csv/Population_timeSeries_Provinces.csv"; //"https://dl.dropboxusercontent.com/s/4ue1lprzqwsiz0y/Population_timeSeries_Provinces.csv";
-		var topoUrl = "topo/piran-.json"; // "https://dl.dropboxusercontent.com/s/ytz7j0czwfxc50c/piran-.json"; 
-		var csvUrl2 = "csv/Population.csv"; //"https://dl.dropboxusercontent.com/s/0qyo4poife93rjz/Population.csv";
-		var csvProvUrl = "csv/provinces.csv";
-		var oosCsvUrl = "csv/out_of_school_children_1390.csv";
 		
 		var attributeArray =[ ];
 		var _csvData = [];
@@ -212,14 +205,13 @@
 		
 		// current year
 		var curYear = 1390;
-		
+				
 		var svg; // global variable for map svg
 
 		var tooltip2 = d3.select("body").append("div")
 			.attr("class", "hidden tooltip");
 		var tooltip = d3.select("body").append("div")
 			.attr("class", "hidden tooltip");
-
 		
 		configParameters();
 		
@@ -311,8 +303,8 @@
 				.translate([350, height / 2 + 25])
 				.precision(0);
 			
-			d3.selectAll("body div.hidden")
-				.remove();
+			/*d3.selectAll("body svg.hidden")
+				.remove();*/
 						
 			var path = d3.geo.path()
 				.projection(projection);
@@ -375,16 +367,17 @@
 					.attr('d', pathSimplified)
 					.attr('class', 'province')
 					.attr('locid', function(d) { return d.id; })
+					.attr('toponame', function(d) { return d.properties.name; })
 					.on("mousemove", function (d) {
 						var mouse = d3.mouse(svg.node()).map(function (d) {
 							return parseInt(d);
 						});
 						tooltip.classed('hidden', false)
 							.attr('style', 'left:' + (mouse[0]+15) + 'px; top:' + (mouse[1]-35) + 'px')
-							.html(this.getAttribute('pername') + "<br>" + this.getAttribute('pop') + "<br>" + this.getAttribute('locid'));
+							.html(this.getAttribute('toponame') + "<br>" + this.getAttribute('pop') + "<br>" + this.getAttribute('locid'));
 						})
 					.on("mouseout", function() {
-						tooltip.classed('hidden', true)
+						tooltip.classed('hidden', true);
 					})
 					.on("click", function(d) { 
 						//drawOstan(d); 
@@ -454,7 +447,7 @@
 		
 		function activateCurOstan(locID) {
 			//curlocID = locID;
-			console.log(locID);
+			//console.log(locID);
 			oldOstans = d3.select(".nothidden path.selected");
 			if (!oldOstans.empty())
 			{
@@ -487,7 +480,7 @@
 				.select("h").remove();
 			d3.select("#ostan")
 				.append("h")
-				.text(data.pername);
+				.text(data.toponame);
 			topoUrl = 'topo/C' + data.filename + '-.json';
 			//console.log(topoUrl);
 			
@@ -545,7 +538,7 @@
 									.html(this.getAttribute('id') + "<br>" + this.getAttribute('pop'));
 								})
 							.on("mouseout", function() {
-								tooltip.classed('hidden', true)
+								tooltip.classed('hidden', true);
 							})
 							.on("click", function(d) { drawOstan(d); });
 						//drawlegend(quantize);
@@ -627,6 +620,20 @@
 		
 		function drawBarChartField(locID, fieldname, elementID)
 		{		
+			/* <div ELEMENTID>
+					<svg>
+						<g>
+							<g x axis>
+							<g y axis>
+							<rect>
+							<rect>
+							<rect>
+							...
+						</g>
+					</svg>
+				</div>*/
+							
+		
 			var el = d3.select("#"+ elementID);
 			if (el.empty())
 				return;
@@ -635,7 +642,7 @@
 				height = 200 - margin.top - margin.bottom;
 
 			var x = d3.scale.ordinal()
-				.rangeRoundBands([0, width], .1);
+				.rangeRoundBands([0, width], .5);
 
 			var y = d3.scale.linear()
 				.range([height, 0]);
@@ -658,14 +665,20 @@
 				.attr("width", width + margin.left + margin.right)
 				.attr("height", height + margin.top + margin.bottom);
 				
-			svg.selectAll("svg")
+			/*svg.selectAll("svg")
 				.remove();
-			
-			svg = svg.append("svg")
+			*/
+			svg = svg.selectAll('svg').data([1]);
+			svg.exit().remove();
+			svg.enter().append("svg")
 				.attr("width", width + margin.left + margin.right)
-				.attr("height", height + margin.top + margin.bottom)
-			.append("g")
-				.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+				.attr("height", height + margin.top + margin.bottom);
+			
+			svg = svg.selectAll('g').data([1]);
+			svg.exit().remove();
+			svg.enter()
+				.append("g")
+					.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 			  			  
  			var oosData = d3.nest()
 				.key(function (d) { return d[fieldname]; })
@@ -682,7 +695,7 @@
 					);				
 			oosData.forEach(function (d) {
 				d.field = d.key;
-				d.pop = d.values;
+				d.pop = isNaN(d.values) ? 0: d.values;
 			});
 			  
 			  x.domain(oosData.map(function(d) { return d.field; }));
@@ -703,7 +716,9 @@
 			
 				y.domain([0, 1.1* d3.max(aggData, function(d) { return d.values; })]);
 			  
-			  svg.append("g")
+			  var axis = svg.selectAll('g.x.axix').data([1]);
+			  axis.exit().remove();
+			  axis.enter().append("g")
 				  .attr("class", "x axis")
 				  .attr("transform", "translate(0," + height + ")")
 				  .call(xAxis)
@@ -712,8 +727,13 @@
 				  .attr("dy", ".71em")
 				  .style("text-anchor", "start")
 				  .text(fieldname);
-
-			  svg.append("g")
+				
+				axis
+					.call(xAxis);
+				  
+			axis = svg.selectAll('g.y.axis').data([1]);
+			  axis.exit().remove();
+			  axis.enter().append("g")
 				  .attr("class", "y axis")
 				  .call(yAxis)
 				.append("text")
@@ -722,9 +742,14 @@
 				  .attr("dy", ".71em")
 				  .style("text-anchor", "end")
 				  .text("data");
-
+				
+				axis
+					.call(yAxis);
+				  
 			  var bar = svg.selectAll(".bar")
 				  .data(oosData);
+				
+				bar.exit().remove();
 				
 				bar.enter().append("rect")
 				  .attr("class", "bar")
@@ -733,7 +758,7 @@
 				  .attr("y", height) //function(d) { return y(d.pop); })
 				  .attr("height", 0)//function(d) { return height - y(d.pop); })
 				  .attr("pop", function(d) { return d.pop;} )
-				  .attr(fieldname, function(d) { return d.fieldname; })
+				  .attr(fieldname, function(d) { return d.field; })
 				  .on("mousemove", function (d) {
 						/*var mouse = d3.mouse(this).map(function (d) {
 							return parseInt(d);
@@ -900,17 +925,20 @@
 			var filteredData = [];
 			var locType = 0;
 			var motherId = "";
+			var curMotherName = ""
 			if (locID.length > 2) // shahrestan - show all shahrestans in the same ostan 
 			{
 				motherId = locID.substr(0, 2);
 				filteredData = csvData.filter(function (p) { return p[locIdFieldInCsv].substr(0, 2) == motherId; });
 				locType = 1;
+				curMotherName = d3.select('[locid="'+locID.substr(0, 2)+'"]').attr('toponame');
 			}
 			else  // ostan - show all ostans' aggregated data
 			{
 				motherId = 'iran';
 				filteredData = csvData;
 				locType = 0;
+				curMotherName = "کل کشور";
 			}			
 
 			/*provData = _csvData.find(function(x) { return x.Code == d.id});
@@ -925,10 +953,10 @@
 				height = 230 - margin.top - margin.bottom;
 
 			var x = d3.scale.ordinal()
-				.rangeRoundBands([0, width], .1);
+				.rangeRoundBands([0, width], .3);
 
 			var y = d3.scale.linear()
-				.range([height, 0]);
+				.range([0, height]);
 
 			var yAxis = d3.svg.axis()
 				.scale(y)
@@ -939,12 +967,20 @@
 				.orient("bottom")
 				.ticks(10, "%");
 			
+			var barTitle = d3.select("#locCompare").selectAll('.barTitle').data([1]);
+			barTitle.enter().append("div");
+			
+			barTitle			
+				.attr('class', 'barTitle')
+				.text(curMotherName);
+			
 			var svg = d3.select("#ostansvg");
+
 			
 			if (svg.attr('locid') != motherId)
 			{
 				// change in data. remove old elements.
-					svg.selectAll("g")
+					svg.selectAll("rect")
 						.remove();
 			}
 			svg
@@ -953,7 +989,9 @@
 				.attr('locid', motherId)
 				
 			
-			svg = svg.data([1]).append("g")
+			svg = svg.selectAll('g').data([1]); // only 1 element is needed. first time append, next times update.
+			
+			svg.enter().append("g")
 				.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 			  			  
 			var selectedValue = getRadioVal("valueSelector");
@@ -978,7 +1016,8 @@
 				d.loc = d.key;
 				if (locType == 0)
 				{	
-					d.name = filteredData.find(function(u) { return u[locIdFieldInCsv] == d.key })[locNameFieldInCsv];
+					d.name = filteredData.find(function(u) { return u[locIdFieldInCsv] == d.key })[
+					locNameFieldInCsv];
 				}
 				else
 				{
@@ -989,34 +1028,45 @@
 			
 			oosData.sort(function (a, b) { return b.pop - a.pop; });
 			  
-			  x.domain(oosData.map(function(d) { return d.name; }));
+			  x.domain(oosData.map(function(d) { return d.name; /*d3.select('[locid="' + d.loc + '"]').attr('toponame');*/ }));
 			  y.domain([0, 1.5*d3.max(oosData, function(d) { return d.pop; })]);
 
-			  svg.append("g")
+			  var axis = svg.selectAll("g.x.axis").data([1]);
+			  axis.exit().remove();	
+			  axis.enter().append("g")
 				  .attr("class", "x axis")
 				  .attr("transform", "translate(0, " + height + ")")
 				  .call(xAxis)
 				.selectAll("text")
-					.attr("transform", "rotate(90)")
-					.style("text-anchor", "start")
+					.attr("transform", "rotate(-90)")
+					.style("text-anchor", "end")
 					.attr("dy", ".35em")
+			axis.transition()
+				.duration(750)
+				.call(xAxis)
 
-
-			  svg.append("g")
+			  axis = svg.selectAll("g.y.axis").data([1]);
+			  axis.exit().remove();
+			  axis.enter().append("g")
 				  .attr("class", "y axis")
 				  //.attr("transform", "rotate(-90)")
-				  .call(yAxis)
-				.append("text")
-				  .attr("transform", "rotate(-90)")
+				.call(yAxis)
+				.selectAll("text")
+				  //.attr("transform", "rotate(-90)")
 				  .attr("y", 6)
 				  .attr("dy", ".71em")
 				  .style("text-anchor", "end")
 				  .text("Population");
-
+			  
+			  axis
+				  .call(yAxis);
+				 
 			  var bars = svg.selectAll(".bar")
-				  .data(oosData);
-				
-				bars.enter().append("rect")
+				  .data(oosData, function(d) { return d.loc; });
+
+			bars.exit().remove();
+
+			  bars.enter().append("rect")
 				  .attr("class", "bar")
 				  .attr("x", function(d) { return x(d.name); })
 				  .attr("height", 0)//y.rangeBand())
@@ -1025,15 +1075,18 @@
 				  .attr("pop", function(d) { return d.pop;} )
 				  .attr("loc", function(d) { return d.loc; })
 				  .attr("locname", function(d) { return d.name;})
-				.attr('style', function(d) {
+				  .attr('style', function(d) {
 						return locType == 0 ?
 							d3.select("[locid='"+ d.loc +"']").attr("style") 
 							:  d3.select("[locid='"+ motherId + d.loc +"']").attr("style");
 						})
+				  .on('click', function(d) {
+						var l = this.getAttribute('loc');
+						if (locType == 1)
+							l = motherId + l;
+						selectLocation(l);
+					})
 				  .on("mousemove", function (d) {
-						/*var mouse = d3.mouse(this).map(function (d) {
-							return parseInt(d);
-						});*/
 						tooltip2.classed('hidden', false)
 							.attr('style', 'left:' + (d3.event.pageX+15) + 'px; top:' + (d3.event.pageY-35) + 'px')
 							.html(this.getAttribute('locname') + "<br>" + this.getAttribute('pop'));
@@ -1041,6 +1094,14 @@
 					.on("mouseout", function() {
 						tooltip2.classed('hidden', true)
 				});
+							
+				/*bars
+				  .attr('style', function(d) {
+						return locType == 0 ?
+							d3.select("[locid='"+ d.loc +"']").attr("style") 
+							:  d3.select("[locid='"+ motherId + d.loc +"']").attr("style");
+						});
+				*/
 				
 				/*svg.selectAll('.bar')
 					.sort(function(a, b) { return a.pop - b.pop;})
@@ -1053,7 +1114,12 @@
 					.duration(750)
 					.attr("y", function(d) { return height - y(d.pop); })
 					.attr("height", function(d) { return y(d.pop); })
-					//.attr("width", function(d) {return x(d.pop);  })	
+					.attr("x", function(d) { return x(d.name); })
+					.attr('style', function(d) {
+						return locType == 0 ?
+							d3.select("[locid='"+ d.loc +"']").attr("style") 
+							:  d3.select("[locid='"+ motherId + d.loc +"']").attr("style");
+						});
 					
 			function type(d) {
 			  d.pop = +d.pop;
