@@ -2,3 +2,22 @@ ver: 0.9
 Date: 950127
 Changes:
 	* Changing subset defaults to 6-17 years/both genders/all settlements
+	
+
+950209: 
+	* Shahresan map simplified
+	* "pername" attribute moved form "yearchange" to "drawMap" function (update not needed, boosts performance)
+	* "pername" attribute - read from topojson "name" property instead of joining with csv (boosts performace)
+	* Bugfix: Y axis upsidedown in LocationComparisonBarChart fixed.
+	* Bugfix: color transitions in locComparison -> 'selected' class defined + 'color style' removed from bar.enter().... and bar.transitions()... and added to bar....
+	* Bugfix: Map tooltip -> number formating + placing nearer to mouse
+	* Bugfix: x-axis redraw for "age" chart
+	* Improvement: x-axis bar animation after subsetting
+	
+950210:
+	* Css layout:
+
+950211:
+	* layout/disply improvement: subsetting bar
+	* y axis re-scaling animation
+	

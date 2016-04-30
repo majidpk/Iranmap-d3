@@ -1,0 +1,72 @@
+@charset "utf-8 ";
+@import url(fonts/weblogma_yekan.css);
+@charset "UTF-8 ";
+
+* {
+	font-family: weblogmayekan;
+	border-width: 1px;
+	border-color: Red;
+	border-style: solid;
+}
+
+body {
+    font-family:weblogmayekan,Arial;
+    margin-top: 100px;
+    //padding: 50px 100px;
+    background: #EEE;
+    //direction: rtl;
+}
+
+header {
+	display: block;
+	position: fixed;
+	top: 0;
+	height: 100;
+	width: 100%;
+}
+
+section.valueGroup
+{
+	position: absolute;
+	left: 10px;
+}
+
+div {
+	border-style: solid;
+}
+
+div.subsetGroup
+{
+	direction: rtl;
+	width: 70%;
+	float: right;
+	display: inline-block;
+	vertical-align: top;
+}
+
+div.valueGroup
+{
+	width: 30%;
+	float: right;
+	display: inline-block;	
+}
+
+select.subset {
+	text-align: right;
+	width: 150;
+	height: 80;
+	font-family:weblogmayekan;
+	font-size: 14;
+	display: inline-block;
+	position: relative;
+}
+
+input.button {
+	font-size: 14;
+	font-family:weblogmayekan;
+	direction: rtl;
+	width: auto;
+	height: 30;
+	display:inline-block;
+	
+}
