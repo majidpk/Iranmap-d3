@@ -53,7 +53,7 @@ div.valueGroup
 	float: right;
 	text-align: right;
 	margin-top: 0;
-	margin-right: 100px;
+	margin-right: 30px;
 	width: auto;
 	padding: 5 5 5 5;
 	border: YellowGreen solid 1px;
@@ -67,9 +67,12 @@ div.valueGroup
 
 div.locationGroup
 {
-	width: 250;
+	//width: 250;
 	text-align: right;
-	float: right;
+	//float: right;
+	position: absolute;
+	bottom: 30;
+	left: 30;
 	display: inline-block;	
 	padding: 5 5 5 5;
 	width: auto;
@@ -335,7 +338,7 @@ p {
 	position: absolute;
 	right: 30px;
 	top: 30px;
-	font-family: weblogmayekan;
+	font-family: B Mitra;
 	font-size: 14;
 	font-style: Bold;
 }
@@ -374,4 +377,24 @@ input.button {
 	margin-top: 3px;
 	width: 80px;
 	text-align: center;
+}
+
+#subsetBtn
+{
+	width: 163px;
+	background-color: YellowGreen;
+}
+
+div.projectTitle
+{
+	position: absolute;
+	left: 270;
+	margin: auto;
+	width: 250;
+	text-align: center;
+}
+div.projectTitle p
+{
+	font-family: B Mitra;
+	font-size: 24;
 }

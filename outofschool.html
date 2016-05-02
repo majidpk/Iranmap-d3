@@ -1,4 +1,5 @@
 <html>	
+<title>اطلس هوشمند کودکان بازمانده از تحصیل</title>
 	<meta charset="UTF-8">
     <script src="js/d3.v3.min.js" src1='http://d3js.org/d3.v3.min.js' charset="utf-8" type='text/javascript'></script>
     <script src="js/topojson.v1.min.js" src1='http://d3js.org/topojson.v1.min.js' type='text/javascript'></script>
@@ -166,7 +167,7 @@
 					<br>
 					<li>
 						<label for="chkAge6">
-							<input type="checkbox" name="chkAge6" id="chkAge6" value="6" checked>
+							<input type="checkbox" name="chkAge6" id="chkAge6" value="6">
 							6 ساله
 							</input>
 						</label>
@@ -243,21 +244,21 @@
 					</li>
 					<li>
 						<label for="chkAge17">
-							<input type="checkbox" name="chkAge17" id="chkAge17" value="17" checked>
+							<input type="checkbox" name="chkAge17" id="chkAge17" value="17">
 							17 ساله
 							</input>
 						</label>
 					</li>
 					<li>
 						<label for="chkAge18">
-							<input type="checkbox" name="chkAge18" id="chkAge18" value="18" checked>
+							<input type="checkbox" name="chkAge18" id="chkAge18" value="18">
 							18 ساله
 							</input>
 						</label>
 					</li>
 					<li>
 						<label for="chkAge19">
-							<input type="checkbox" name="chkAge19" id="chkAge19" value="19" checked>
+							<input type="checkbox" name="chkAge19" id="chkAge19" value="19">
 							19 ساله
 							</input>
 						</label>
@@ -269,7 +270,7 @@
 					<input class="button" id="subsetReset" type="reset" value="پیش فرض" onclick="(function (e, obj) { 
 						console.log(this); console.log(getSelectValues(resSubset)); } )(event, this)"></input>
 					<input class="button" id="subsetAll" type="button" value="همه"></input>
-					<input class="button" id="subsetBtn" type="submit" value="اعمال" style="background-color: YellowGreen"></input>
+					<input class="button" id="subsetBtn" type="submit" value="اعمال"></input>
 				<!--</div>-->
 		</td>
 		<td width="60%" style="direction: ltr; display:none">
@@ -303,7 +304,13 @@
 	<td rowspan="3" width="800px">
 		<div id="main">
 			<div class="timeSlider">
-				<input id="yearSlider" type="range" min="1390" max="1395" step="5" value="1390" oninput="yearChange(value)">1390</input>
+				<input id="yearSlider" type="range" min="1390" max="1395" step="5" value="1390" oninput="yearChange(value)" disabled>1390</input>
+
+			</div>
+			<div class="projectTitle">
+				<p>
+					اطلس هوشمند <br>کودکان بازمانده از تحصیل <br>1390
+				</p>
 			</div>
 			<div class="locationGroup">
 				<input type="radio" value="0" name="locType" onchange="subsetChanged(true)">استان</input>
@@ -319,9 +326,9 @@
 					</select>
 					-->
 					<!--<input onchange="subsetChanged(false)" type="radio" value="population.ed" name="valueSelector" checked="true">جمعیت در حال تحصیل<br></input>-->
-					<input onchange="subsetChanged(false)" type="radio" value="population.not.ed" name="valueSelector" checked="true" >جمعیت</input>
+					<input onchange="subsetChanged(false)" type="radio" value="population.not.ed" name="valueSelector">جمعیت</input>
 					<!--<input onchange="subsetChanged(false)" type="radio" value="percent.population.ed" name="valueSelector">درصد در حال تحصیل<br></input>-->
-					<input onchange="subsetChanged(false)" type="radio" value="percent.population.not.ed" name="valueSelector">درصد</input>
+					<input onchange="subsetChanged(false)" type="radio" value="percent.population.not.ed" name="valueSelector" checked="true">درصد</input>
 				<!--</div>-->
 			</div>
 	</td>
@@ -334,7 +341,7 @@
 			<div id="barChart1"></div>
 		</td>
 		<td>
-			<div id="barChart2"></div>
+			<div class="titledChart" id="barChart2"></div>
 		</td>
 	</tr>
 	<tr height="200px">
@@ -387,7 +394,7 @@
 		var _shahrestanTopoData = [];
 		
 		// 1: location resolution is Ostan; otherwise is Shahrestan
-		var isOstan = 1;
+		var isOstan = 0;
 		
 		// selected (current) Ostan ID
 		var curLocID = "2301"
@@ -416,6 +423,10 @@
 			if (error) throw error;
 
 			// setting global variables
+			shahrestanCsvData.forEach(function(d) {
+				s = d[locIdFieldInCsv] + "";
+				d[locIdFieldInCsv] = ("0").repeat(4-s.length) + s;
+			});
 			_ostanCsvData = ostanCsvData;
 			_shahrestanCsvData = shahrestanCsvData;
 			_ostanTopoData = ostanTopoData;
@@ -556,13 +567,14 @@
 							return parseInt(d);
 						});
 						var selectedValue = getRadioVal("valueSelector");
-						var valueTag = selectedValue.startsWith("percent") ? "درصد" : "نفر"
+						var valueTag = selectedValue.startsWith("percent") ? "درصد" : "نفر";
+						var factor = selectedValue.startsWith("percent") ? 100 : 1;
 
 						tooltip
 							.classed('hidden', false)
 							.style('left', mouse[0]+20)
 							.style('top', mouse[1]+50)
-							.html(this.getAttribute('toponame') + " (" + this.getAttribute('locid') +")" + "<br>" + numberWithCommas(Math.trunc(this.getAttribute('pop') * 100)) + " " + valueTag);
+							.html(this.getAttribute('toponame') + " (" + this.getAttribute('locid') +")" + "<br>" + numberWithCommas(Math.trunc(this.getAttribute('pop') * factor)) + " " + valueTag);
 						})
 					.on("mouseout", function() {
 						tooltip.classed('hidden', true);
@@ -797,11 +809,14 @@
 				curLocation = curLocation.attr("pername")
 			else
 				curLocation = "N/A";
+
+			locPrefix = isOstan == 1 ? "استان " : "شهرستان ";
+			el = d3.select("div.titledChart#"+elementID);
 			var barTitle = el.selectAll('.barTitle').data([1]);
 			barTitle.enter().append("div");
 			barTitle.transition()
 				.attr('class', 'barTitle')
-				.text(curLocation);
+				.text(locPrefix + curLocation);
 				
 			var selectedValue = getRadioVal("valueSelector");
 			var aggregateField = selectedValue.replace("percent.", "");
@@ -1007,7 +1022,7 @@
 				motherId = locID.substr(0, 2);
 				filteredData = csvData.filter(function (p) { return p[locIdFieldInCsv].substr(0, 2) == motherId; });
 				locType = 1;
-				curMotherName = d3.select('[locid="'+locID.substr(0, 2)+'"]').attr('toponame');
+				curMotherName = "استان " + d3.select('[locid="'+locID.substr(0, 2)+'"]').attr('toponame');
 			}
 			else  // ostan - show all ostans' aggregated data
 			{
@@ -1040,8 +1055,8 @@
 
 			var xAxis = d3.svg.axis()
 				.scale(x)
+				.ticks(0)//.ticks(10, "%");
 				.orient("bottom")
-				.ticks(10, "%");
 			
 			var barTitle = d3.select("#locCompare").selectAll('.barTitle').data([1]);
 			barTitle.enter().append("div");
@@ -1117,18 +1132,28 @@
 				.call(xAxis)
 				.selectAll("text")
 					.style("text-anchor", "middle")
-					//.attr("transform", "rotate(-90)")
+					//.attr("transform", "rotate(-90)"
 					.attr("dy", ".35em");
 				
 			axis
+				.call(xAxis)
 				.selectAll("text")
-					.attr("transform", "rotate(-90)")
-					.style("text-anchor", "middle")
-					
-			axis.transition()
+					.attr("transform", function(d) { return "rotate(-90,"+ this.getAttribute("x") + "," + this.getAttribute("y") + ") translate(25, 0)"; })
+					.style("text-anchor", "end");
+			axis
+				.selectAll("line")
+				.remove();
+			
+			/*axis.transition()
 				.duration(750)
 				.call(xAxis)
-
+				.selectAll("text")
+					.attr("transform", function(d) { return "rotate(-90,"+ this.getAttribute("x") + "," + this.getAttribute("y") + ")"; })
+					.style("text-anchor", "end")
+				.selectAll('line')
+				.remove();
+			*/
+			
 			axis = svg.selectAll("g.y.axis").data([1]);
 			//axis.exit().remove();
 			axis.enter().append("g")
@@ -1196,10 +1221,10 @@
 					.attr("height", function(d) { return height - y(d.pop); })
 					.attr("x", function(d) { return x(d.name); });
 				
-			function type(d) {
+			/*function type(d) {
 			  d.pop = +d.pop;
 			  return d;
-			}
+			}*/
 
 		}
 		
